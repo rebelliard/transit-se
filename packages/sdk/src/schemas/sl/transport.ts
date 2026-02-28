@@ -38,13 +38,30 @@ export const SLTransportAuthoritySchema = v.object({
   valid: ValidityPeriodSchema,
 });
 
+export const SLGroupOfLinesSchema = v.picklist([
+  'Tunnelbanans blå linje',
+  'Tunnelbanans gröna linje',
+  'Tunnelbanans röda linje',
+  'Pendeltåg',
+  'Spårväg City',
+  'Tvärbanan',
+  'Lidingöbanan',
+  'Nockebybanan',
+  'Roslagsbanan',
+  'Saltsjöbanan',
+  'Blåbuss',
+  'Närtrafiken',
+  'Ersättningsbuss',
+  'Pendelbåt',
+]);
+
 export const SLLineSchema = v.object({
   id: v.number(),
   gid: v.number(),
   name: v.string(),
   designation: v.string(),
   transport_mode: SLTransportModeSchema,
-  group_of_lines: v.string(),
+  group_of_lines: v.optional(SLGroupOfLinesSchema),
   transport_authority: SLTransportAuthorityRefSchema,
   contractor: SLContractorSchema,
   valid: ValidityPeriodSchema,
@@ -119,7 +136,7 @@ export const SLDepartureLineSchema = v.object({
   id: v.number(),
   designation: v.string(),
   transport_mode: SLTransportModeSchema,
-  group_of_lines: v.string(),
+  group_of_lines: v.optional(SLGroupOfLinesSchema),
 });
 
 export const SLDepartureSchema = v.object({

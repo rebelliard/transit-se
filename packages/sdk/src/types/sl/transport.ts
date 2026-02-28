@@ -4,6 +4,26 @@
 export type SLTransportMode = 'metro' | 'tram' | 'train' | 'bus' | 'ship' | 'ferry' | 'taxi';
 
 /**
+ * Known values for `group_of_lines` on SL lines and departures.
+ * Absent for regular buses, some ships, and taxi.
+ */
+export type SLGroupOfLines =
+  | 'Tunnelbanans blå linje'
+  | 'Tunnelbanans gröna linje'
+  | 'Tunnelbanans röda linje'
+  | 'Pendeltåg'
+  | 'Spårväg City'
+  | 'Tvärbanan'
+  | 'Lidingöbanan'
+  | 'Nockebybanan'
+  | 'Roslagsbanan'
+  | 'Saltsjöbanan'
+  | 'Blåbuss'
+  | 'Närtrafiken'
+  | 'Ersättningsbuss'
+  | 'Pendelbåt';
+
+/**
  * Validity period for SL resources.
  */
 export interface ValidityPeriod {
@@ -52,7 +72,7 @@ export interface SLLine {
   name: string;
   designation: string;
   transport_mode: SLTransportMode;
-  group_of_lines: string;
+  group_of_lines?: SLGroupOfLines;
   transport_authority: SLTransportAuthorityRef;
   contractor: SLContractor;
   valid: ValidityPeriod;
@@ -166,7 +186,7 @@ export interface SLDepartureLine {
   id: number;
   designation: string;
   transport_mode: SLTransportMode;
-  group_of_lines: string;
+  group_of_lines?: SLGroupOfLines;
 }
 
 /**

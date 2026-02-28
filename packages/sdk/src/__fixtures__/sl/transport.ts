@@ -216,7 +216,7 @@ export const slLinesResponse: SLLinesResponse = {
       name: 'Blåbuss 1',
       designation: '1',
       transport_mode: 'bus',
-      group_of_lines: 'Blåbussar',
+      group_of_lines: 'Blåbuss',
       transport_authority: { id: 1, name: 'SL' },
       contractor: { id: 3, name: 'Keolis' },
       valid: { from: '2024-01-01' },
