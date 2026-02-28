@@ -1,6 +1,6 @@
 {
   "name": "@transit-se/mcp",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "MCP server for Swedish public transit (Trafiklab). Real-time departures, service alerts, and stop lookups as AI-callable tools.",
   "type": "module",
   "license": "MIT",
@@ -44,7 +44,7 @@
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.0",
-    "@transit-se/sdk": "^1.0.0",
+    "@transit-se/sdk": "^1.0.1",
     "zod": "^3.25.0"
   },
   "devDependencies": {
