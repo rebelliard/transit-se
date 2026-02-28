@@ -2,17 +2,23 @@
 /**
  * Bump the version of a workspace package.
  *
- * Usage:
- *   bun scripts/bump-version.ts <patch|minor|major|prerelease> [--preid=beta]
+ * Run via the package-level `version:*` scripts so `cwd` is the package root:
+ *   bun run --filter @transit-se/sdk version:patch
+ *   bun run --filter @transit-se/mcp version:minor
+ *
+ * Or invoke directly with an explicit cwd:
+ *   cd packages/sdk && bun ../../scripts/bump-version.ts patch
  *
  * Examples:
- *   bun scripts/bump-version.ts patch        # 0.1.0 → 0.1.1
- *   bun scripts/bump-version.ts minor        # 0.1.0 → 0.2.0
- *   bun scripts/bump-version.ts major        # 0.1.0 → 1.0.0
- *   bun scripts/bump-version.ts prerelease   # 0.1.0 → 0.1.1-beta.0
+ *   patch        # 0.1.0 → 0.1.1
+ *   minor        # 0.1.0 → 0.2.0
+ *   major        # 0.1.0 → 1.0.0
+ *   prerelease   # 0.1.0 → 0.1.1-beta.0
  */
 
-const PKG_PATH = new URL('../packages/sdk/package.json', import.meta.url).pathname;
+import { resolve } from 'path';
+
+const PKG_PATH = resolve(process.cwd(), 'package.json');
 
 type BumpType = 'patch' | 'minor' | 'major' | 'prerelease';
 
@@ -82,4 +88,4 @@ const newVersion = bumpVersion(oldVersion, bump, preid);
 pkg.version = newVersion;
 await Bun.write(PKG_PATH, JSON.stringify(pkg, null, 2) + '\n');
 
-console.log(`@transit-se/sdk: ${oldVersion} → ${newVersion}`);
+console.log(`${pkg.name}: ${oldVersion} → ${newVersion}`);

@@ -92,6 +92,10 @@ Both packages use `tsc` to build. The SDK emits JS + declaration files; the MCP 
 - **MCP**: Same pattern. The build config also clears workspace `paths` so imports stay as `@transit-se/sdk/*` (resolved from `node_modules` at runtime, not rewritten to relative paths).
 - **MCP bin**: Points to `dist/index.js` with a `#!/usr/bin/env node` shebang, so users can run it via `npx @transit-se/mcp` without needing Bun.
 - Both packages have `prepublishOnly` scripts that run the build automatically before `npm publish`.
+- **Pre-publish checks**: Always run `bun run check && bun run test` before publishing to catch type errors, lint issues, and test failures.
+- **Publish order**: SDK first, then MCP. The MCP depends on `@transit-se/sdk`, so publish the SDK, then update the MCP's `@transit-se/sdk` dependency version in `packages/mcp/package.json` before publishing MCP.
+- **Version bumping**: Each package has `version:patch`, `version:minor`, `version:major`, and `version:pre` scripts (e.g. `bun run --filter @transit-se/sdk version:patch`). These call `scripts/bump-version.ts` which updates `package.json` and prints the old → new version.
+- **Changelogs**: Before publishing, update `packages/sdk/CHANGELOG.md` and/or `packages/mcp/CHANGELOG.md`. Add a new `## <version>` heading at the top (below `# Changelog`) with a bullet list summarizing the changes. If the MCP package only bumps its SDK dependency, note that (e.g. "Bump `@transit-se/sdk` to X.Y.Z (summary of SDK changes)").
 
 ## Adding a New API
 
