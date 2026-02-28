@@ -1,6 +1,6 @@
 {
   "name": "@transit-se/sdk",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "TypeScript SDK for Swedish public transit APIs (Trafiklab). Departures, stop lookups, service alerts, and more.",
   "type": "module",
   "license": "MIT",
