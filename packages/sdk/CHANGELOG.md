@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.2
+
+- Improve npm discoverability (keywords, homepage, description)
+
 ## 1.0.1
 
 - Add `SLGroupOfLines` union type for the `group_of_lines` field on `SLLine` and `SLDepartureLine`
