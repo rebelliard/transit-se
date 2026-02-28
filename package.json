@@ -1,0 +1,36 @@
+{
+  "name": "transit-se",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "author": "Rafael Belliard",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/rebelliard/transit-se.git"
+  },
+  "scripts": {
+    "tc": "tsc --noEmit -p packages/sdk/tsconfig.json && tsc --noEmit -p packages/mcp/tsconfig.json",
+    "test": "bun test",
+    "lint": "eslint packages/",
+    "check": "bun format 1>/dev/null &&bun run tc && bun run lint",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "prepare": "husky"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "lint-staged": {
+    "*": "prettier --write --ignore-unknown"
+  },
+  "devDependencies": {
+    "@total-typescript/shoehorn": "^0.1.2",
+    "eslint": "^10.0.2",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  }
+}

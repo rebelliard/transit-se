@@ -1,0 +1,19 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "typeRoots": ["./node_modules/@types", "../../node_modules/@types"],
+    "paths": {
+      "@transit-se/sdk": ["../sdk/src/index.ts"],
+      "@transit-se/sdk/sl": ["../sdk/src/api/sl/index.ts"],
+      "@transit-se/sdk/trafiklab": ["../sdk/src/api/trafiklab/index.ts"],
+      "@transit-se/sdk/gtfs": ["../sdk/src/api/gtfs/index.ts"],
+      "@transit-se/sdk/combined": ["../sdk/src/api/combined/index.ts"],
+      "@transit-se/sdk/schemas": ["../sdk/src/schemas/index.ts"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["node_modules", "dist"]
+}
