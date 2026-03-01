@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+- Add Installation section to README
+- Make SDK link npm-first
+- Bump `@transit-se/sdk` to 1.0.3
+
 ## 1.0.2
 
 - Improve npm discoverability (keywords, homepage, description)

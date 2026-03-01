@@ -1,6 +1,6 @@
 {
   "name": "@transit-se/mcp",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "MCP server for Swedish public transit (Trafiklab, GTFS-RT). Real-time departures, service alerts, and stop lookups as AI-callable tools.",
   "homepage": "https://github.com/rebelliard/transit-se/tree/main/packages/mcp#transit-semcp",
   "type": "module",
@@ -49,7 +49,7 @@
   ],
   "dependencies": {
     "@modelcontextprotocol/sdk": "^1.27.0",
-    "@transit-se/sdk": "^1.0.2",
+    "@transit-se/sdk": "^1.0.3",
     "zod": "^3.25.0"
   },
   "devDependencies": {
