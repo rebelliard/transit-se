@@ -64,7 +64,25 @@ app.get('/sl/sites', async (c) => {
 
 app.get('/sl/departures/:siteId', async (c) => {
   const siteId = Number(c.req.param('siteId'));
-  const result = await sl.getDepartures(siteId);
+  const forecast = c.req.query('forecast');
+  const direction = c.req.query('direction');
+  const line = c.req.query('line');
+  const transport = c.req.query('transport');
+
+  const result = await sl.getDepartures(siteId, {
+    forecast: forecast ? Number(forecast) : undefined,
+    direction: direction ? Number(direction) : undefined,
+    line: line ? Number(line) : undefined,
+    transport: transport as
+      | 'METRO'
+      | 'TRAM'
+      | 'TRAIN'
+      | 'BUS'
+      | 'SHIP'
+      | 'FERRY'
+      | 'TAXI'
+      | undefined,
+  });
   return c.json(result);
 });
 

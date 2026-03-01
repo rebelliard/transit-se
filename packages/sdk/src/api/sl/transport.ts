@@ -7,6 +7,7 @@ import {
   SLTransportAuthoritiesArraySchema,
 } from '../../schemas/sl/transport';
 import type {
+  SLDeparturesOptions,
   SLDeparturesResponse,
   SLLinesResponse,
   SLSite,
@@ -38,9 +39,14 @@ export class SLTransportApi extends BaseApi {
   private byName: Map<string, SLSiteEntry> | null = null;
 
   constructor(
-    options?: Partial<Omit<BaseApiOptions, 'apiKey'>> & { transportAuthorityId?: string },
+    options?: Partial<Omit<BaseApiOptions, 'apiKey'>> & {
+      transportAuthorityId?: string;
+    },
   ) {
-    super({ baseUrl: options?.baseUrl ?? BASE_URL, validate: options?.validate });
+    super({
+      baseUrl: options?.baseUrl ?? BASE_URL,
+      validate: options?.validate,
+    });
     this.transportAuthorityId = options?.transportAuthorityId ?? SL_TRANSPORT_AUTHORITY_ID;
   }
 
@@ -65,12 +71,29 @@ export class SLTransportApi extends BaseApi {
    * For example, `300109001` becomes `9001`.
    *
    * @param siteId - Numeric site identifier (e.g. 9192 for Slussen)
+   * @param options - Optional filters (forecast window, direction, line, transport mode)
    * @returns Departures and any stop-level deviations
    */
-  async getDepartures(siteId: number): Promise<SLDeparturesResponse> {
+  async getDepartures(
+    siteId: number,
+    options?: SLDeparturesOptions,
+  ): Promise<SLDeparturesResponse> {
+    const params: Record<string, string> = {};
+    if (options?.forecast != null) {
+      params.forecast = String(options.forecast);
+    }
+    if (options?.direction != null) {
+      params.direction = String(options.direction);
+    }
+    if (options?.line != null) {
+      params.line = String(options.line);
+    }
+    if (options?.transport != null) {
+      params.transport = options.transport;
+    }
     return this.get<SLDeparturesResponse>(
       `/sites/${siteId}/departures`,
-      undefined,
+      Object.keys(params).length > 0 ? params : undefined,
       parser(SLDeparturesResponseSchema),
     );
   }

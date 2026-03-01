@@ -37,10 +37,10 @@ describe('Timetable MCP Tools', () => {
   it('get_departures should return departure data', async () => {
     registerTrafiklabTimetableTools(server, client);
 
-    const result = await client.timetables.getDepartures('740000001');
+    const result = await client.timetables.getDepartures('740020749');
     expect(result.departures).toHaveLength(2);
-    expect(result.departures[0].route.designation).toBe('19');
-    expect(result.departures[0].route.direction).toBe('Hagsätra');
+    expect(result.departures[0].route.designation).toBe('13');
+    expect(result.departures[0].route.direction).toBe('Ropsten');
   });
 
   it('get_departures should support optional time parameter', async () => {
@@ -58,9 +58,9 @@ describe('Timetable MCP Tools', () => {
 
     registerTrafiklabTimetableTools(server, client);
 
-    const result = await client.timetables.getArrivals('740000001');
-    expect(result.arrivals).toHaveLength(1);
-    expect(result.arrivals[0].route.designation).toBe('13');
+    const result = await client.timetables.getArrivals('740020749');
+    expect(result.arrivals).toHaveLength(2);
+    expect(result.arrivals[0].route.designation).toBe('17');
   });
 
   it('should handle canceled departures', async () => {

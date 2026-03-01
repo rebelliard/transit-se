@@ -41,7 +41,7 @@ describe('Stop Lookup MCP Tools', () => {
     // Call the SDK method directly to verify it would work
     const result = await client.stops.searchByName('T-Centralen');
     expect(result.stop_groups).toHaveLength(2);
-    expect(result.stop_groups[0].name).toBe('T-Centralen');
+    expect(result.stop_groups[0].name).toBe('T-Centralen T-bana');
     expect(mockFetch).toHaveBeenCalledTimes(1);
   });
 

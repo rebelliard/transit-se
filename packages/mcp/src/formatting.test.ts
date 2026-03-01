@@ -23,142 +23,132 @@ import {
 // ─── Fixtures ───────────────────────────────────────────────────────
 
 const stopLookupResult: TrafiklabStopLookupResponse = {
-  timestamp: '2025-04-01T14:22:43',
-  query: { queryTime: '2025-04-01T14:22:00', query: 'T-Centralen' },
+  timestamp: '2026-03-01T14:50:58',
+  query: { queryTime: '2026-03-01T14:50:58', query: 'T-Centralen' },
   stop_groups: [
     {
-      id: '740000001',
-      name: 'T-Centralen',
-      area_type: 'META_STOP',
-      average_daily_stop_times: 1250.5,
-      transport_modes: ['METRO', 'BUS', 'TRAIN'],
-      stops: [
-        { id: '740000001-A', name: 'T-Centralen (tunnelbana)', lat: 59.3313, lon: 18.0597 },
-        { id: '740000001-B', name: 'T-Centralen (bussar)', lat: 59.3315, lon: 18.0601 },
-      ],
+      id: '740020749',
+      name: 'T-Centralen T-bana',
+      area_type: 'RIKSHALLPLATS',
+      average_daily_stop_times: 2023.35,
+      transport_modes: ['METRO'],
+      stops: [{ id: '9825', name: 'T-Centralen', lat: 59.33166, lon: 18.061694 }],
     },
   ],
 };
 
 const departuresResult: TrafiklabDeparturesResponse = {
-  timestamp: '2025-04-01T14:30:00',
-  query: { queryTime: '2025-04-01T14:30:00', query: '740000001' },
+  timestamp: '2026-03-01T14:51:18',
+  query: { queryTime: '2026-03-01T14:51:00', query: '740020749' },
   stops: [
     {
-      id: '740000001-A',
+      id: '9825',
       name: 'T-Centralen',
-      lat: 59.3313,
-      lon: 18.0597,
+      lat: 59.33166,
+      lon: 18.061694,
       transport_modes: ['METRO'],
       alerts: [
         {
-          id: 'a1',
-          header: 'Service disruption',
-          details: 'Delays on green line',
-          severity: 'WARNING',
+          type: 'MAINTENANCE',
+          title: 'Service disruption',
+          text: 'Delays on green line',
         },
       ],
     },
   ],
   departures: [
     {
-      scheduled: '2025-04-01T14:32:00+02:00',
-      realtime: '2025-04-01T14:34:00+02:00',
-      delay: 120,
+      scheduled: '2026-03-01T14:49:48',
+      realtime: '2026-03-01T14:51:46',
+      delay: 118,
       canceled: false,
       route: {
-        name: 'Gröna linjen',
-        designation: '19',
-        transport_mode: 'METRO',
+        name: 'Röda linjen',
+        designation: '13',
         transport_mode_code: 401,
-        direction: 'Hagsätra',
-        origin: { id: '740000025', name: 'Hässelby strand' },
-        destination: { id: '740000252', name: 'Hagsätra' },
+        transport_mode: 'METRO',
+        direction: 'Ropsten',
+        origin: { id: '9139', name: 'Norsborg' },
+        destination: { id: '9863', name: 'Ropsten' },
       },
-      trip: { trip_id: 'trip-1', start_date: '2025-04-01', technical_number: 42 },
-      stop: {
-        id: '740000001-A',
-        name: 'T-Centralen',
-        lat: 59.3313,
-        lon: 18.0597,
-        transport_modes: ['METRO'],
-        alerts: [],
+      trip: { trip_id: '14010100702496794', start_date: '2026-03-01', technical_number: 26496 },
+      agency: {
+        id: '505000000000000001',
+        name: 'AB Storstockholms Lokaltrafik',
+        operator: 'Connecting Stockholm',
       },
-      scheduled_platform: { id: 'p1', designation: '1' },
-      realtime_platform: { id: 'p1', designation: '1' },
+      stop: { id: '9825', name: 'T-Centralen', lat: 59.33166, lon: 18.061694 },
+      scheduled_platform: { id: '9022050009825001', designation: '3' },
+      realtime_platform: { id: '9022050009825001', designation: '3' },
       alerts: [],
       is_realtime: true,
     },
     {
-      scheduled: '2025-04-01T14:35:00+02:00',
-      realtime: '2025-04-01T14:35:00+02:00',
+      scheduled: '2026-03-01T14:50:42',
+      realtime: '2026-03-01T14:50:42',
       delay: 0,
       canceled: true,
       route: {
-        name: 'Röda linjen',
-        designation: '14',
-        transport_mode: 'METRO',
+        name: 'Gröna linjen',
+        designation: '17',
         transport_mode_code: 401,
-        direction: 'Mörby centrum',
-        origin: { id: '740000044', name: 'Fruängen' },
-        destination: { id: '740000033', name: 'Mörby centrum' },
+        transport_mode: 'METRO',
+        direction: 'Skarpnäck',
+        origin: { id: '12256', name: 'Åkeshov' },
+        destination: { id: '12346', name: 'Skarpnäck' },
       },
-      trip: { trip_id: 'trip-2', start_date: '2025-04-01', technical_number: 88 },
-      stop: {
-        id: '740000001-A',
-        name: 'T-Centralen',
-        lat: 59.3313,
-        lon: 18.0597,
-        transport_modes: ['METRO'],
-        alerts: [],
+      trip: { trip_id: '14010000702402856', start_date: '2026-03-01', technical_number: 10522 },
+      agency: {
+        id: '505000000000000001',
+        name: 'AB Storstockholms Lokaltrafik',
+        operator: 'Connecting Stockholm',
       },
-      scheduled_platform: { id: 'p2', designation: '2' },
+      stop: { id: '9825', name: 'T-Centralen', lat: 59.33166, lon: 18.061694 },
+      scheduled_platform: { id: '9022050009825002', designation: '4' },
       realtime_platform: null,
-      alerts: [{ id: 'a2', header: 'Trip canceled', details: 'This trip is canceled' }],
+      alerts: [{ type: 'INFORMATION', title: 'Trip canceled', text: 'This trip is canceled' }],
       is_realtime: true,
     },
   ],
 };
 
 const arrivalsResult: TrafiklabArrivalsResponse = {
-  timestamp: '2025-04-01T14:30:00',
-  query: { queryTime: '2025-04-01T14:30:00', query: '740000001' },
+  timestamp: '2026-03-01T14:51:39',
+  query: { queryTime: '2026-03-01T14:51:00', query: '740020749' },
   stops: [
     {
-      id: '740000001-A',
+      id: '9825',
       name: 'T-Centralen',
-      lat: 59.3313,
-      lon: 18.0597,
+      lat: 59.33166,
+      lon: 18.061694,
       transport_modes: ['METRO'],
       alerts: [],
     },
   ],
   arrivals: [
     {
-      scheduled: '2025-04-01T14:31:00+02:00',
-      realtime: '2025-04-01T14:31:00+02:00',
-      delay: 0,
+      scheduled: '2026-03-01T14:50:00',
+      realtime: '2026-03-01T14:51:18',
+      delay: 78,
       canceled: false,
       route: {
-        name: 'Röda linjen',
-        designation: '13',
-        transport_mode: 'METRO',
+        name: 'Gröna linjen',
+        designation: '17',
         transport_mode_code: 401,
-        direction: 'Norsborg',
-        origin: { id: '740000034', name: 'Ropsten' },
-        destination: { id: '740000055', name: 'Norsborg' },
+        transport_mode: 'METRO',
+        direction: 'Skarpnäck',
+        origin: { id: '12256', name: 'Åkeshov' },
+        destination: { id: '12346', name: 'Skarpnäck' },
       },
-      trip: { trip_id: 'trip-a1', start_date: '2025-04-01', technical_number: 101 },
-      stop: {
-        id: '740000001-A',
-        name: 'T-Centralen',
-        lat: 59.3313,
-        lon: 18.0597,
-        transport_modes: ['METRO'],
-        alerts: [],
+      trip: { trip_id: '14010000702402856', start_date: '2026-03-01', technical_number: 10522 },
+      agency: {
+        id: '505000000000000001',
+        name: 'AB Storstockholms Lokaltrafik',
+        operator: 'Connecting Stockholm',
       },
-      scheduled_platform: { id: 'p3', designation: '3' },
-      realtime_platform: { id: 'p3', designation: '3' },
+      stop: { id: '9825', name: 'T-Centralen', lat: 59.33166, lon: 18.061694 },
+      scheduled_platform: { id: '9022050009825002', designation: '4' },
+      realtime_platform: { id: '9022050009825002', designation: '4' },
       alerts: [],
       is_realtime: true,
     },
@@ -168,27 +158,26 @@ const arrivalsResult: TrafiklabArrivalsResponse = {
 const slDeparturesResult: SLDeparturesResponse = {
   departures: [
     {
-      direction: 'Hässelby strand',
-      direction_code: 1,
-      via: '',
-      destination: 'Hässelby strand',
+      destination: 'Kungsträdgården',
+      direction_code: 2,
+      direction: 'Kungsträdgården',
       state: 'EXPECTED',
-      scheduled: '2025-04-01T14:32:00',
-      expected: '2025-04-01T14:33:00',
-      display: '1 min',
+      scheduled: '2026-03-01T14:34:00',
+      expected: '2026-03-01T14:36:41',
+      display: '3 min',
       journey: {
-        id: 50001,
+        id: 2026030136046,
         state: 'NORMALPROGRESS',
         prediction_state: 'NORMAL',
-        passenger_level: 'LOW',
       },
-      stop_area: { id: 10001, name: 'T-Centralen', sname: 'TCE', type: 'METROSTN' },
-      stop_point: { id: 20001, name: 'T-Centralen', designation: '1' },
+      stop_area: { id: 1051, name: 'T-Centralen', type: 'METROSTN' },
+      stop_point: { id: 3052, name: 'T-Centralen', designation: '6' },
       line: {
-        id: 19,
-        designation: '19',
-        transport_mode: 'metro',
-        group_of_lines: 'Tunnelbanans gröna linje',
+        id: 11,
+        designation: '11',
+        transport_authority_id: 1,
+        transport_mode: 'METRO',
+        group_of_lines: 'Tunnelbanans blå linje',
       },
       deviations: [],
     },
@@ -199,41 +188,48 @@ const slDeparturesResult: SLDeparturesResponse = {
 const slDeparturesWithDeviations: SLDeparturesResponse = {
   departures: [
     {
-      direction: 'Hagsätra',
-      direction_code: 1,
-      via: '',
-      destination: 'Hagsätra',
-      state: 'NOTEXPECTED',
-      scheduled: '2025-04-01T15:10:00',
-      expected: '2025-04-01T15:10:00',
-      display: '',
+      destination: 'Uppsala C',
+      direction_code: 2,
+      direction: 'Uppsala',
+      state: 'ATSTOP',
+      display: 'Nu',
+      scheduled: '2026-03-01T14:38:00',
+      expected: '2026-03-01T14:38:00',
       journey: {
-        id: 50003,
-        state: 'CANCELLED',
-        prediction_state: 'UNKNOWN',
-        passenger_level: 'UNKNOWN',
+        id: 2026030102242,
+        state: 'NORMALPROGRESS',
+        prediction_state: 'NORMAL',
       },
-      stop_area: { id: 10001, name: 'T-Centralen', sname: 'TCE', type: 'METROSTN' },
-      stop_point: { id: 20001, name: 'T-Centralen', designation: '1' },
+      stop_area: { id: 5310, name: 'Stockholm City', type: 'RAILWSTN' },
+      stop_point: { id: 5312, name: 'Stockholm City', designation: '2' },
       line: {
-        id: 19,
-        designation: '19',
-        transport_mode: 'metro',
-        group_of_lines: 'Tunnelbanans gröna linje',
+        id: 40,
+        designation: '40',
+        transport_authority_id: 1,
+        transport_mode: 'TRAIN',
+        group_of_lines: 'Pendeltåg',
       },
       deviations: [
-        { importance: 5, consequence: 'CANCELLED', message: 'Signal failure at Slussen' },
+        {
+          importance_level: 2,
+          consequence: 'INFORMATION',
+          message: 'Hissen är avstängd på grund av tekniskt fel.',
+        },
       ],
     },
   ],
   stop_deviations: [
-    { importance: 8, consequence: 'INFORMATION', message: 'Reduced service on green line' },
+    {
+      id: 10449348,
+      importance_level: 2,
+      message: 'Korta tåg. Gå mot mitten av plattformen.',
+    },
   ],
 };
 
 const slSites: Array<SLSiteEntry> = [
-  { id: 9192, name: 'Slussen', lat: 59.3198, lon: 18.0723 },
-  { id: 9001, name: 'T-Centralen', lat: 59.3313, lon: 18.0597 },
+  { id: 9192, name: 'Slussen', lat: 59.3203176773338, lon: 18.0724531524889 },
+  { id: 9001, name: 'T-Centralen', lat: 59.3313754153065, lon: 18.0604334292973 },
 ];
 
 // ─── Tests ──────────────────────────────────────────────────────────
@@ -241,19 +237,19 @@ const slSites: Array<SLSiteEntry> = [
 describe('formatTrafiklabStopLookup', () => {
   it('should format stop groups with names, IDs, and modes', () => {
     const text = formatTrafiklabStopLookup(stopLookupResult);
-    expect(text).toContain('T-Centralen');
-    expect(text).toContain('740000001');
+    expect(text).toContain('T-Centralen T-bana');
+    expect(text).toContain('740020749');
     expect(text).toContain('METRO');
-    expect(text).toContain('META_STOP');
-    expect(text).toContain('1250.5');
+    expect(text).toContain('RIKSHALLPLATS');
+    expect(text).toContain('2023.35');
   });
 
   it('should include child stops with coordinates', () => {
     const text = formatTrafiklabStopLookup(stopLookupResult);
-    expect(text).toContain('T-Centralen (tunnelbana)');
-    expect(text).toContain('740000001-A');
-    expect(text).toContain('59.3313');
-    expect(text).toContain('18.0597');
+    expect(text).toContain('T-Centralen');
+    expect(text).toContain('9825');
+    expect(text).toContain('59.33166');
+    expect(text).toContain('18.061694');
   });
 
   it('should handle empty results', () => {
@@ -280,10 +276,10 @@ describe('formatTrafiklabDepartures', () => {
 
   it('should show line designation and direction', () => {
     const text = formatTrafiklabDepartures(departuresResult);
-    expect(text).toContain('Line 19');
-    expect(text).toContain('Hagsätra');
-    expect(text).toContain('Line 14');
-    expect(text).toContain('Mörby centrum');
+    expect(text).toContain('Line 13');
+    expect(text).toContain('Ropsten');
+    expect(text).toContain('Line 17');
+    expect(text).toContain('Skarpnäck');
   });
 
   it('should show delay information', () => {
@@ -309,7 +305,7 @@ describe('formatTrafiklabDepartures', () => {
 
   it('should show platform info', () => {
     const text = formatTrafiklabDepartures(departuresResult);
-    expect(text).toContain('Platform 1');
+    expect(text).toContain('Platform 3');
   });
 
   it('should mark non-realtime entries', () => {
@@ -340,8 +336,8 @@ describe('formatTrafiklabArrivals', () => {
 
   it('should show line and direction', () => {
     const text = formatTrafiklabArrivals(arrivalsResult);
-    expect(text).toContain('Line 13');
-    expect(text).toContain('Norsborg');
+    expect(text).toContain('Line 17');
+    expect(text).toContain('Skarpnäck');
   });
 
   it('should handle empty arrivals', () => {
@@ -364,9 +360,9 @@ describe('formatSLDepartures', () => {
 
   it('should show display time, line, and destination', () => {
     const text = formatSLDepartures(slDeparturesResult, 9001);
-    expect(text).toContain('1 min');
-    expect(text).toContain('19');
-    expect(text).toContain('Hässelby strand');
+    expect(text).toContain('3 min');
+    expect(text).toContain('11');
+    expect(text).toContain('Kungsträdgården');
   });
 
   it('should show transport mode in uppercase', () => {
@@ -376,27 +372,17 @@ describe('formatSLDepartures', () => {
 
   it('should show platform designation', () => {
     const text = formatSLDepartures(slDeparturesResult, 9001);
-    expect(text).toContain('Platform 1');
-  });
-
-  it('should show crowding level when known', () => {
-    const text = formatSLDepartures(slDeparturesResult, 9001);
-    expect(text).toContain('Crowding: LOW');
-  });
-
-  it('should hide crowding when UNKNOWN', () => {
-    const text = formatSLDepartures(slDeparturesWithDeviations, 9001);
-    expect(text).not.toContain('Crowding: UNKNOWN');
+    expect(text).toContain('Platform 6');
   });
 
   it('should show stop deviations', () => {
     const text = formatSLDepartures(slDeparturesWithDeviations, 9001);
-    expect(text).toContain('Reduced service on green line');
+    expect(text).toContain('Korta tåg. Gå mot mitten av plattformen.');
   });
 
   it('should show departure-level disruptions', () => {
     const text = formatSLDepartures(slDeparturesWithDeviations, 9001);
-    expect(text).toContain('Signal failure at Slussen');
+    expect(text).toContain('Hissen är avstängd på grund av tekniskt fel.');
   });
 
   it('should handle empty departures', () => {
@@ -410,7 +396,7 @@ describe('formatSLSites', () => {
     const text = formatSLSites(slSites);
     expect(text).toContain('Slussen');
     expect(text).toContain('9192');
-    expect(text).toContain('59.3198');
+    expect(text).toContain('59.3203');
     expect(text).toContain('T-Centralen');
     expect(text).toContain('9001');
   });
@@ -452,23 +438,27 @@ describe('formatSLSites', () => {
 
 const gtfsAlerts: Array<GtfsServiceAlert> = [
   {
-    id: 'alert-1',
-    cause: 'MAINTENANCE',
-    effect: 'REDUCED_SERVICE',
-    headerText: 'Reducerad trafik på linje 1',
-    descriptionText: 'Linje 1 kör med reducerad turtäthet pga underhåll.',
-    activePeriods: [{ start: 1709100000, end: 1709200000 }],
-    informedEntities: [{ routeId: '1', stopId: '740000001' }],
+    id: '33010000163741154',
+    cause: 'CONSTRUCTION',
+    effect: 'UNKNOWN_EFFECT',
+    headerText: 'Hållplats Martallsvägen (Uppsala) trafikeras inte',
+    descriptionText:
+      'Hållplats Martallsvägen (Uppsala) är indragen i båda riktningar och trafikeras inte av linje 11 och 107. Resande hänvisas till hållplats Spinnrocksvägen. Detta beror på vägarbete och gäller till och med 2026-04-30.',
+    activePeriods: [{ start: 1765959967, end: 1777586340 }],
+    informedEntities: [
+      { routeId: '9011003010700000', routeType: 0, stopId: '4467' },
+      { routeId: '9011003001100000', routeType: 0, stopId: '4246' },
+    ],
   },
   {
-    id: 'alert-2',
+    id: '33010000166383924',
     cause: 'WEATHER',
     effect: 'SIGNIFICANT_DELAYS',
     headerText: 'Förseningar pga väderförhållanden',
     descriptionText: 'Förseningar upp till 20 minuter pga halt väglag.',
-    url: 'https://ul.se/disruptions/123',
-    activePeriods: [{ start: 1709150000 }],
-    informedEntities: [{ agencyId: 'UL', routeId: '801' }],
+    url: 'https://ul.se/disruptions/166383924',
+    activePeriods: [{ start: 1769143028 }],
+    informedEntities: [{ agencyId: 'UL', routeId: '9011003010000000' }],
   },
 ];
 
@@ -481,34 +471,34 @@ describe('formatGtfsServiceAlerts', () => {
 
   it('should show alert header and effect', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('Reducerad trafik på linje 1');
-    expect(text).toContain('REDUCED_SERVICE');
+    expect(text).toContain('Hållplats Martallsvägen (Uppsala) trafikeras inte');
+    expect(text).toContain('SIGNIFICANT_DELAYS');
   });
 
   it('should show description text', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('Linje 1 kör med reducerad turtäthet pga underhåll.');
+    expect(text).toContain('Resande hänvisas till hållplats Spinnrocksvägen');
   });
 
   it('should show cause', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('maintenance');
+    expect(text).toContain('construction');
   });
 
   it('should show route and stop IDs', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('Routes: 1');
-    expect(text).toContain('Stops: 740000001');
+    expect(text).toContain('Routes: 9011003010700000, 9011003001100000');
+    expect(text).toContain('Stops: 4467, 4246');
   });
 
   it('should show URL when present', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('https://ul.se/disruptions/123');
+    expect(text).toContain('https://ul.se/disruptions/166383924');
   });
 
   it('should show active period dates', () => {
     const text = formatGtfsServiceAlerts(gtfsAlerts, 'ul');
-    expect(text).toContain('2024-02-28');
+    expect(text).toContain('2025-12-17');
   });
 
   it('should show "ongoing" when no end date', () => {
@@ -536,73 +526,73 @@ describe('formatGtfsServiceAlerts', () => {
 
 const gtfsTripUpdates: Array<GtfsTripUpdate> = [
   {
-    id: 'tu-1',
+    id: '14010517687256993',
     trip: {
-      tripId: 'trip-abc-123',
-      routeId: '801',
+      tripId: '14010000713020248',
+      routeId: '9011001004300000',
       directionId: 0,
-      startTime: '08:30:00',
-      startDate: '20240228',
+      startTime: '14:45:00',
+      startDate: '20260301',
       scheduleRelationship: 'SCHEDULED',
     },
-    vehicle: { id: 'vehicle-42', label: 'Bus 801' },
+    vehicle: { id: '9031008000500546', label: 'Pendeltåg 43' },
     stopTimeUpdates: [
       {
-        stopSequence: 1,
-        stopId: '740000001',
-        arrival: { delay: 120, time: 1709101200, uncertainty: 30 },
-        departure: { delay: 150, time: 1709101350, uncertainty: 30 },
+        stopSequence: 32,
+        stopId: '9022050013110001',
+        arrival: { delay: 412, time: 1772374012, uncertainty: 60 },
+        departure: { delay: 412, time: 1772374012, uncertainty: 60 },
         scheduleRelationship: 'SCHEDULED',
       },
       {
-        stopSequence: 2,
-        stopId: '740000002',
-        arrival: { delay: 180, time: 1709102400, uncertainty: 60 },
-        departure: { delay: 180, time: 1709102580 },
+        stopSequence: 33,
+        stopId: '9022050013100001',
+        arrival: { delay: 541, time: 1772374441 },
+        departure: { delay: 592, time: 1772374492 },
         scheduleRelationship: 'SCHEDULED',
       },
     ],
-    timestamp: 1709100900,
-    delay: 120,
+    timestamp: 1772374495,
+    delay: 412,
   },
   {
-    id: 'tu-2',
+    id: '14050001911285220',
     trip: {
-      tripId: 'trip-def-456',
-      routeId: '3',
+      tripId: '14010000702187461',
+      routeId: '9011001001800000',
       directionId: 1,
-      startTime: '09:00:00',
-      startDate: '20240228',
+      startTime: '15:11:12',
+      startDate: '20260301',
       scheduleRelationship: 'CANCELED',
     },
     stopTimeUpdates: [],
-    timestamp: 1709100900,
+    timestamp: 1772374412,
   },
 ];
 
 const gtfsTripUpdatesWithSkippedStop: Array<GtfsTripUpdate> = [
   {
-    id: 'tu-skip',
+    id: '14010517652571469',
     trip: {
-      tripId: 'trip-skip-1',
-      routeId: '19',
+      tripId: '14010100711492126',
+      routeId: '9011001015100000',
       scheduleRelationship: 'SCHEDULED',
     },
     stopTimeUpdates: [
       {
-        stopSequence: 3,
-        stopId: '740000010',
+        stopSequence: 79,
+        stopId: '9022050010409001',
         scheduleRelationship: 'SKIPPED',
       },
       {
-        stopSequence: 4,
-        stopId: '740000011',
-        arrival: { delay: 0, time: 1709103000 },
-        departure: { delay: 0, time: 1709103060 },
+        stopSequence: 80,
+        stopId: '9022050011518001',
+        arrival: { delay: 0, time: 1772374653 },
+        departure: { delay: 0, time: 1772374660 },
         scheduleRelationship: 'SCHEDULED',
       },
     ],
-    timestamp: 1709100600,
+    timestamp: 1772374418,
   },
 ];
 
@@ -615,8 +605,8 @@ describe('formatGtfsTripUpdates', () => {
 
   it('should show route and trip ID', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
-    expect(text).toContain('Route 801');
-    expect(text).toContain('trip-abc-123');
+    expect(text).toContain('Route 9011001004300000');
+    expect(text).toContain('14010000713020248');
   });
 
   it('should show schedule relationship for non-scheduled trips', () => {
@@ -626,34 +616,34 @@ describe('formatGtfsTripUpdates', () => {
 
   it('should show trip-level delay', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
-    expect(text).toContain('+2 min');
+    expect(text).toContain('+7 min');
   });
 
   it('should show vehicle info', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
-    expect(text).toContain('Bus 801');
+    expect(text).toContain('Pendeltåg 43');
   });
 
   it('should show departure time', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
-    expect(text).toContain('08:30:00');
-    expect(text).toContain('2024-02-28');
+    expect(text).toContain('14:45:00');
+    expect(text).toContain('2026-03-01');
   });
 
   it('should show delayed stops count', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
     expect(text).toContain('2 stop(s) delayed');
-    expect(text).toContain('max +3 min');
+    expect(text).toContain('max +10 min');
   });
 
   it('should show next stop', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdates, 'ul');
-    expect(text).toContain('Next: 740000001');
+    expect(text).toContain('Next: 9022050013110001');
   });
 
   it('should show skipped stops', () => {
     const text = formatGtfsTripUpdates(gtfsTripUpdatesWithSkippedStop, 'ul');
-    expect(text).toContain('Skipped stops: 740000010');
+    expect(text).toContain('Skipped stops: 9022050010409001');
   });
 
   it('should use operator abbreviation when name unknown', () => {
@@ -676,37 +666,37 @@ describe('formatGtfsTripUpdates', () => {
 
 const gtfsVehiclePositions: Array<GtfsVehiclePosition> = [
   {
-    id: 'vp-1',
+    id: '48061772374517773',
     trip: {
-      tripId: 'trip-abc-123',
-      routeId: '801',
+      tripId: '14010000664343260',
+      routeId: '9011001004300000',
       directionId: 0,
-      startTime: '08:30:00',
-      startDate: '20240228',
+      startTime: '14:45:00',
+      startDate: '20260301',
       scheduleRelationship: 'SCHEDULED',
     },
-    vehicle: { id: 'vehicle-42', label: 'Bus 801', licensePlate: 'ABC123' },
-    position: { latitude: 59.8586, longitude: 17.6389, bearing: 180, speed: 12.5 },
-    currentStopSequence: 5,
-    stopId: '740000001',
+    vehicle: { id: '9031001001004806', label: 'Pendeltåg 43', licensePlate: 'SL4806' },
+    position: { latitude: 59.33179, longitude: 18.02621, bearing: 90, speed: 10.6 },
+    currentStopSequence: 12,
+    stopId: '9022050013110001',
     currentStatus: 'IN_TRANSIT_TO',
-    timestamp: 1709100900,
+    timestamp: 1772374517,
     congestionLevel: 'RUNNING_SMOOTHLY',
     occupancyStatus: 'FEW_SEATS_AVAILABLE',
     occupancyPercentage: 45,
   },
   {
-    id: 'vp-2',
+    id: '371362377',
     trip: {
-      tripId: 'trip-def-456',
-      routeId: '3',
+      tripId: '14010100711492126',
+      routeId: '9011005006100000',
       directionId: 1,
       scheduleRelationship: 'SCHEDULED',
     },
-    vehicle: { id: 'vehicle-99' },
-    position: { latitude: 59.3313, longitude: 18.0597 },
+    vehicle: { id: '9031005920505666' },
+    position: { latitude: 58.41698, longitude: 15.62424 },
     currentStatus: 'STOPPED_AT',
-    timestamp: 1709100800,
+    timestamp: 1772374517,
   },
 ];
 
@@ -719,8 +709,8 @@ describe('formatGtfsVehiclePositions', () => {
 
   it('should show route and vehicle label', () => {
     const text = formatGtfsVehiclePositions(gtfsVehiclePositions, 'ul');
-    expect(text).toContain('Route 801');
-    expect(text).toContain('Bus 801');
+    expect(text).toContain('Route 9011001004300000');
+    expect(text).toContain('Pendeltåg 43');
   });
 
   it('should show vehicle stop status', () => {
@@ -731,20 +721,20 @@ describe('formatGtfsVehiclePositions', () => {
 
   it('should show position coordinates', () => {
     const text = formatGtfsVehiclePositions(gtfsVehiclePositions, 'ul');
-    expect(text).toContain('59.8586');
-    expect(text).toContain('17.6389');
+    expect(text).toContain('59.3318');
+    expect(text).toContain('18.0262');
   });
 
   it('should show bearing and speed in km/h', () => {
     const text = formatGtfsVehiclePositions(gtfsVehiclePositions, 'ul');
-    expect(text).toContain('bearing 180°');
-    expect(text).toContain('45 km/h');
+    expect(text).toContain('bearing 90°');
+    expect(text).toContain('38 km/h');
   });
 
   it('should show stop ID', () => {
     const text = formatGtfsVehiclePositions(gtfsVehiclePositions, 'ul');
-    expect(text).toContain('740000001');
-    expect(text).toContain('seq 5');
+    expect(text).toContain('9022050013110001');
+    expect(text).toContain('seq 12');
   });
 
   it('should show occupancy status', () => {
@@ -915,44 +905,50 @@ describe('formatSLDeviations', () => {
 // ─── Combined SL Nearby Vehicles ────────────────────────────────────
 
 const nearbyResult: CombinedSLNearbyVehiclesResult = {
-  location: { name: 'Slussen', siteId: 9192, latitude: 59.3195, longitude: 18.0722 },
+  location: { name: 'T-Centralen', siteId: 9001, latitude: 59.3314, longitude: 18.0604 },
   radiusKm: 1,
   vehicles: [
     {
-      id: 'entity-1',
-      vehicleId: 'V1001',
-      vehicleLabel: 'Metro 1001',
+      id: '48151772374092874',
+      vehicleId: '9031001001004815',
       transportMode: 'metro',
-      position: { latitude: 59.3198, longitude: 18.0725, bearing: 90, speed: 8.3 },
-      distanceMeters: 42,
-      currentStatus: 'STOPPED_AT',
-      timestamp: 1743505200,
-      trip: { tripId: 'trip-123', routeId: 'route-17' },
-      nearestStopPoint: { name: 'Slussen', designation: 'A', type: 'METROSTN', distanceMeters: 15 },
+      position: { latitude: 59.3312, longitude: 18.061, bearing: 59, speed: 2.5 },
+      distanceMeters: 38,
+      currentStatus: 'IN_TRANSIT_TO',
+      timestamp: 1772374092,
+      trip: { tripId: '14010000704215260', directionId: 0 },
+      nearestStopPoint: {
+        name: 'T-Centralen',
+        designation: '3',
+        type: 'METROSTN',
+        distanceMeters: 12,
+      },
     },
     {
-      id: 'entity-2',
-      vehicleLabel: 'Bus 43',
+      id: '4711772374092768',
+      vehicleId: '9031001007000471',
+      vehicleLabel: 'Buss 3',
       transportMode: 'bus',
-      position: { latitude: 59.319, longitude: 18.071, speed: 0 },
-      distanceMeters: 850,
+      position: { latitude: 59.3321, longitude: 18.0608, bearing: 80, speed: 3.1 },
+      distanceMeters: 80,
       currentStatus: 'IN_TRANSIT_TO',
       nearestStopPoint: {
-        name: 'Ryssgården',
+        name: 'T-Centralen',
+        designation: 'M',
         type: 'BUSTERM',
-        distanceMeters: 30,
+        distanceMeters: 25,
       },
     },
   ],
   activeModes: ['metro', 'bus'],
-  timestamp: 1743505200,
+  timestamp: 1772374092,
 };
 
 describe('formatCombinedSLNearbyVehicles', () => {
   it('should show location and vehicle count', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('Vehicles near Slussen');
-    expect(text).toContain('ID: 9192');
+    expect(text).toContain('Vehicles near T-Centralen');
+    expect(text).toContain('ID: 9001');
     expect(text).toContain('2 within 1 km');
   });
 
@@ -964,43 +960,42 @@ describe('formatCombinedSLNearbyVehicles', () => {
   it('should show transport mode and distance', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
     expect(text).toContain('METRO');
-    expect(text).toContain('42 m');
+    expect(text).toContain('38 m');
     expect(text).toContain('BUS');
-    expect(text).toContain('850 m');
+    expect(text).toContain('80 m');
   });
 
   it('should show vehicle labels', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('Metro 1001');
-    expect(text).toContain('Bus 43');
+    expect(text).toContain('9031001001004815');
+    expect(text).toContain('Buss 3');
   });
 
   it('should show speed in km/h', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('30 km/h');
-    expect(text).toContain('0 km/h');
+    expect(text).toContain('9 km/h');
+    expect(text).toContain('11 km/h');
   });
 
   it('should show bearing when present', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('90°');
+    expect(text).toContain('59°');
   });
 
   it('should show current status', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('STOPPED AT');
     expect(text).toContain('IN TRANSIT TO');
   });
 
   it('should show nearest stop point info', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('near Slussen (A)');
-    expect(text).toContain('near Ryssgården');
+    expect(text).toContain('near T-Centralen (3)');
+    expect(text).toContain('near T-Centralen (M)');
   });
 
   it('should show trip info', () => {
     const text = formatCombinedSLNearbyVehicles(nearbyResult);
-    expect(text).toContain('trip trip-123');
+    expect(text).toContain('trip 14010000704215260');
   });
 
   it('should handle empty vehicles', () => {
@@ -1010,7 +1005,7 @@ describe('formatCombinedSLNearbyVehicles', () => {
       activeModes: [],
     };
     const text = formatCombinedSLNearbyVehicles(empty);
-    expect(text).toBe('No vehicles found within 1 km of Slussen.');
+    expect(text).toBe('No vehicles found within 1 km of T-Centralen.');
   });
 
   it('should format distance in km when >= 1000m', () => {

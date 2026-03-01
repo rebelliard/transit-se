@@ -18,9 +18,16 @@ export const API_DESCRIPTIONS = {
   sl_departures: {
     icon: '🚏',
     summary: 'Get real-time departures from a Stockholm (SL) station',
-    description: 'No API key needed. Includes display times, crowding, and disruptions.',
+    description:
+      'No API key needed. Includes display times, crowding, and disruptions. Optionally filter by forecast window, direction, line, or transport mode.',
     params: {
       site_id: 'SL site ID, e.g. 9192 for Slussen. Use sl_sites to find IDs.',
+      forecast:
+        'Forecast window in minutes (min: 5, default: 60). Only return departures within this time window.',
+      direction: 'Direction code (1 or 2) to filter by travel direction.',
+      line: 'Line ID to show departures for a single line only, e.g. 19 for green metro line 19.',
+      transport:
+        'Transport mode filter: METRO, TRAM, TRAIN, BUS, SHIP, FERRY, or TAXI. Only return departures for this mode.',
     },
   },
   sl_deviations: {

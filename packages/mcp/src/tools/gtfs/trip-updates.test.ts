@@ -41,7 +41,7 @@ describe('GTFS Trip Updates MCP Tool', () => {
 
     const result = await tripUpdatesApi.getTripUpdates('ul');
     expect(result).toHaveLength(2);
-    expect(result[0].trip.tripId).toBe('trip-abc-123');
+    expect(result[0].trip.tripId).toBe('14010000713020248');
   });
 
   it('should pass operator to the API URL', async () => {

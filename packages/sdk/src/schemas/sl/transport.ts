@@ -1,44 +1,44 @@
 import * as v from 'valibot';
 
-export const SLTransportModeSchema = v.picklist([
-  'metro',
-  'tram',
-  'train',
-  'bus',
-  'ship',
-  'ferry',
-  'taxi',
+const SLTransportModeSchema = v.picklist([
+  'METRO',
+  'TRAM',
+  'TRAIN',
+  'BUS',
+  'SHIP',
+  'FERRY',
+  'TAXI',
 ]);
 
-export const ValidityPeriodSchema = v.object({
+const ValidityPeriodSchema = v.object({
   from: v.string(),
   to: v.optional(v.string()),
 });
 
-export const SLTransportAuthorityRefSchema = v.object({
+const SLTransportAuthorityRefSchema = v.object({
   id: v.number(),
   name: v.string(),
 });
 
-export const SLContractorSchema = v.object({
+const SLContractorSchema = v.object({
   id: v.number(),
   name: v.string(),
 });
 
-export const SLTransportAuthoritySchema = v.object({
+const SLTransportAuthoritySchema = v.object({
   id: v.number(),
   gid: v.number(),
   name: v.string(),
-  formal_name: v.string(),
+  formal_name: v.optional(v.string()),
   code: v.string(),
-  street: v.string(),
-  postal_code: v.number(),
-  city: v.string(),
-  country: v.string(),
+  street: v.optional(v.string()),
+  postal_code: v.optional(v.number()),
+  city: v.optional(v.string()),
+  country: v.optional(v.string()),
   valid: ValidityPeriodSchema,
 });
 
-export const SLGroupOfLinesSchema = v.picklist([
+const SLGroupOfLinesSchema = v.picklist([
   'Tunnelbanans blå linje',
   'Tunnelbanans gröna linje',
   'Tunnelbanans röda linje',
@@ -55,7 +55,7 @@ export const SLGroupOfLinesSchema = v.picklist([
   'Pendelbåt',
 ]);
 
-export const SLLineSchema = v.object({
+const SLLineSchema = v.object({
   id: v.number(),
   gid: v.number(),
   name: v.string(),
@@ -63,7 +63,7 @@ export const SLLineSchema = v.object({
   transport_mode: SLTransportModeSchema,
   group_of_lines: v.optional(SLGroupOfLinesSchema),
   transport_authority: SLTransportAuthorityRefSchema,
-  contractor: SLContractorSchema,
+  contractor: v.optional(SLContractorSchema),
   valid: ValidityPeriodSchema,
 });
 
@@ -77,37 +77,39 @@ export const SLLinesResponseSchema = v.object({
   taxi: v.array(SLLineSchema),
 });
 
-export const SLSiteSchema = v.object({
+const SLSiteSchema = v.object({
   id: v.number(),
   gid: v.number(),
   name: v.string(),
-  abbreviation: v.string(),
+  alias: v.optional(v.array(v.string())),
+  note: v.optional(v.string()),
+  abbreviation: v.optional(v.string()),
   lat: v.number(),
   lon: v.number(),
   stop_areas: v.optional(v.array(v.number())),
   valid: ValidityPeriodSchema,
 });
 
-export const SLStopAreaSchema = v.object({
+const SLStopAreaSchema = v.object({
   id: v.number(),
   name: v.string(),
-  sname: v.string(),
+  sname: v.optional(v.string()),
   type: v.string(),
 });
 
-export const SLStopPointSchema = v.object({
+const SLStopPointSchema = v.object({
   id: v.number(),
   name: v.string(),
-  designation: v.string(),
+  designation: v.optional(v.string()),
 });
 
-export const SLStopPointFullSchema = v.object({
+const SLStopPointFullSchema = v.object({
   id: v.number(),
   gid: v.number(),
   pattern_point_gid: v.number(),
   name: v.string(),
   sname: v.string(),
-  designation: v.string(),
+  designation: v.optional(v.string()),
   local_num: v.number(),
   type: v.string(),
   has_entrance: v.boolean(),
@@ -119,30 +121,30 @@ export const SLStopPointFullSchema = v.object({
   valid: ValidityPeriodSchema,
 });
 
-export const SLDeviationSchema = v.object({
-  importance: v.number(),
+const SLDeviationSchema = v.object({
+  importance_level: v.number(),
   consequence: v.string(),
   message: v.string(),
 });
 
-export const SLJourneySchema = v.object({
+const SLJourneySchema = v.object({
   id: v.number(),
   state: v.string(),
-  prediction_state: v.string(),
-  passenger_level: v.string(),
+  prediction_state: v.optional(v.string()),
 });
 
-export const SLDepartureLineSchema = v.object({
+const SLDepartureLineSchema = v.object({
   id: v.number(),
   designation: v.string(),
+  transport_authority_id: v.optional(v.number()),
   transport_mode: SLTransportModeSchema,
   group_of_lines: v.optional(SLGroupOfLinesSchema),
 });
 
-export const SLDepartureSchema = v.object({
+const SLDepartureSchema = v.object({
   direction: v.string(),
   direction_code: v.number(),
-  via: v.string(),
+  via: v.optional(v.string()),
   destination: v.string(),
   state: v.string(),
   scheduled: v.string(),
@@ -155,10 +157,33 @@ export const SLDepartureSchema = v.object({
   deviations: v.array(SLDeviationSchema),
 });
 
-export const SLStopDeviationSchema = v.object({
-  importance: v.number(),
-  consequence: v.string(),
+const SLStopDeviationSchema = v.object({
+  id: v.number(),
+  importance_level: v.number(),
   message: v.string(),
+  scope: v.optional(
+    v.object({
+      stop_areas: v.optional(
+        v.array(v.object({ id: v.number(), name: v.string(), type: v.string() })),
+      ),
+      stop_points: v.optional(
+        v.array(
+          v.object({ id: v.number(), name: v.string(), designation: v.optional(v.string()) }),
+        ),
+      ),
+      lines: v.optional(
+        v.array(
+          v.object({
+            id: v.number(),
+            designation: v.string(),
+            transport_authority_id: v.number(),
+            transport_mode: SLTransportModeSchema,
+            group_of_lines: v.optional(v.string()),
+          }),
+        ),
+      ),
+    }),
+  ),
 });
 
 export const SLDeparturesResponseSchema = v.object({

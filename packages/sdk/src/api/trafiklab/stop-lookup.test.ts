@@ -66,9 +66,9 @@ describe('TrafiklabStopLookupApi', () => {
       const result = await api.searchByName('T-Centralen');
 
       expect(result.stop_groups).toHaveLength(2);
-      expect(result.stop_groups[0].name).toBe('T-Centralen');
-      expect(result.stop_groups[0].area_type).toBe('META_STOP');
-      expect(result.stop_groups[0].stops).toHaveLength(2);
+      expect(result.stop_groups[0].name).toBe('T-Centralen T-bana');
+      expect(result.stop_groups[0].area_type).toBe('RIKSHALLPLATS');
+      expect(result.stop_groups[0].stops).toHaveLength(1);
       expect(result.stop_groups[0].transport_modes).toContain('METRO');
     });
 
@@ -85,8 +85,8 @@ describe('TrafiklabStopLookupApi', () => {
       const result = await api.searchByName('T-Centralen');
 
       const stop = result.stop_groups[0].stops[0];
-      expect(stop.lat).toBeCloseTo(59.3313, 3);
-      expect(stop.lon).toBeCloseTo(18.0597, 3);
+      expect(stop.lat).toBeCloseTo(59.3317, 3);
+      expect(stop.lon).toBeCloseTo(18.0617, 3);
     });
 
     it('should include average daily stop times', async () => {

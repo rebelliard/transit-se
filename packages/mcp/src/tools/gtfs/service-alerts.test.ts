@@ -41,7 +41,7 @@ describe('GTFS Service Alerts MCP Tool', () => {
 
     const result = await alertsApi.getServiceAlerts('ul');
     expect(result).toHaveLength(2);
-    expect(result[0].headerText).toBe('Reducerad trafik på linje 1');
+    expect(result[0].headerText).toBe('Hållplats Martallsvägen (Uppsala) trafikeras inte');
   });
 
   it('should pass operator to the API URL', async () => {

@@ -66,8 +66,8 @@ describe('GtfsServiceAlertsApi', () => {
       const api = new GtfsServiceAlertsApi({ apiKey: 'test-key' });
       const result = await api.getServiceAlerts('ul');
 
-      expect(result[0].cause).toBe('MAINTENANCE');
-      expect(result[0].effect).toBe('REDUCED_SERVICE');
+      expect(result[0].cause).toBe('CONSTRUCTION');
+      expect(result[0].effect).toBe('UNKNOWN_EFFECT');
       expect(result[1].cause).toBe('WEATHER');
       expect(result[1].effect).toBe('SIGNIFICANT_DELAYS');
     });
@@ -77,8 +77,8 @@ describe('GtfsServiceAlertsApi', () => {
       const result = await api.getServiceAlerts('ul');
 
       expect(result[0].activePeriods).toHaveLength(1);
-      expect(result[0].activePeriods[0].start).toBe(1709100000);
-      expect(result[0].activePeriods[0].end).toBe(1709200000);
+      expect(result[0].activePeriods[0].start).toBe(1765959967);
+      expect(result[0].activePeriods[0].end).toBe(1777586340);
       expect(result[1].activePeriods[0].end).toBeUndefined();
     });
 
@@ -86,9 +86,9 @@ describe('GtfsServiceAlertsApi', () => {
       const api = new GtfsServiceAlertsApi({ apiKey: 'test-key' });
       const result = await api.getServiceAlerts('ul');
 
-      expect(result[0].informedEntities).toHaveLength(1);
-      expect(result[0].informedEntities[0].routeId).toBe('1');
-      expect(result[0].informedEntities[0].stopId).toBe('740000001');
+      expect(result[0].informedEntities).toHaveLength(2);
+      expect(result[0].informedEntities[0].routeId).toBe('9011003010700000');
+      expect(result[0].informedEntities[0].stopId).toBe('4467');
       expect(result[1].informedEntities[0].agencyId).toBe('UL');
     });
 
@@ -97,7 +97,7 @@ describe('GtfsServiceAlertsApi', () => {
       const result = await api.getServiceAlerts('ul');
 
       expect(result[0].url).toBeUndefined();
-      expect(result[1].url).toBe('https://ul.se/disruptions/123');
+      expect(result[1].url).toBe('https://ul.se/disruptions/166383924');
     });
 
     it('should prefer Swedish translations', async () => {
@@ -108,8 +108,8 @@ describe('GtfsServiceAlertsApi', () => {
       const api = new GtfsServiceAlertsApi({ apiKey: 'test-key' });
       const result = await api.getServiceAlerts('ul');
 
-      expect(result[0].headerText).toBe('Omlagd körväg linje 3');
-      expect(result[0].descriptionText).toBe('Linje 3 kör via Storgatan pga vägarbete.');
+      expect(result[0].headerText).toBe('Omlagd körväg linje 1');
+      expect(result[0].descriptionText).toBe('Linje 1 kör via Storgatan pga vägarbete.');
     });
 
     it('should return empty array when no alerts', async () => {

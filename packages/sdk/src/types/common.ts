@@ -17,16 +17,6 @@ export interface Coordinates {
 export type Operator = 'SL' | (string & {});
 
 /**
- * Alert/service message attached to departures or stops.
- */
-export interface Alert {
-  id: string;
-  header: string;
-  details: string;
-  severity?: string;
-}
-
-/**
  * API usage statistics.
  */
 export interface UsageStats {

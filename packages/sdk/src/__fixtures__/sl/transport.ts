@@ -7,115 +7,119 @@ import type {
 } from '../../types/sl/transport';
 
 /**
- * Realistic fixture: SL sites
+ * Fixture: SL sites (from /sites)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/sites
  */
 export const slSitesResponse: Array<SLSite> = [
   {
     id: 9001,
-    gid: 9600009001,
+    gid: 9091001000009001,
     name: 'T-Centralen',
+    alias: ['Tcentralen'],
     abbreviation: 'TCE',
-    lat: 59.331264,
-    lon: 18.059547,
-    valid: { from: '2024-01-01' },
+    lat: 59.3313754153065,
+    lon: 18.0604334292973,
+    valid: { from: '2018-11-23T00:00:00' },
   },
   {
     id: 9192,
-    gid: 9600009192,
+    gid: 9091001000009192,
     name: 'Slussen',
     abbreviation: 'SLU',
-    lat: 59.319783,
-    lon: 18.072345,
-    valid: { from: '2024-01-01' },
+    lat: 59.3203176773338,
+    lon: 18.0724531524889,
+    valid: { from: '2023-10-07T00:00:00' },
   },
 ];
 
 /**
- * Realistic fixture: SL sites with expand=true
+ * Fixture: SL sites with expand=true (from /sites?expand=true)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/sites?expand=true
  */
 export const slSitesExpandedResponse: Array<SLSite> = [
   {
     id: 9001,
-    gid: 9600009001,
+    gid: 9091001000009001,
     name: 'T-Centralen',
+    alias: ['Tcentralen'],
     abbreviation: 'TCE',
-    lat: 59.331264,
-    lon: 18.059547,
-    stop_areas: [10001, 10002, 10003],
-    valid: { from: '2024-01-01' },
+    lat: 59.3313754153065,
+    lon: 18.0604334292973,
+    stop_areas: [1051, 5011, 5901, 10291, 80055, 10910, 4301, 5300, 5310],
+    valid: { from: '2018-11-23T00:00:00' },
   },
 ];
 
 /**
- * Realistic fixture: SL departures from T-Centralen
+ * Fixture: SL departures from T-Centralen (from /sites/9001/departures)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/sites/9001/departures
+ * Trimmed to 2 representative departures (metro blue line + bus).
  */
 export const slDeparturesResponse: SLDeparturesResponse = {
   departures: [
     {
-      direction: 'Hässelby strand',
-      direction_code: 1,
-      via: '',
-      destination: 'Hässelby strand',
+      destination: 'Kungsträdgården',
+      direction_code: 2,
+      direction: 'Kungsträdgården',
       state: 'EXPECTED',
-      scheduled: '2025-04-01T14:32:00',
-      expected: '2025-04-01T14:33:00',
-      display: '1 min',
+      scheduled: '2026-03-01T14:34:00',
+      expected: '2026-03-01T14:36:41',
+      display: '3 min',
       journey: {
-        id: 50001,
+        id: 2026030136046,
         state: 'NORMALPROGRESS',
         prediction_state: 'NORMAL',
-        passenger_level: 'LOW',
       },
       stop_area: {
-        id: 10001,
+        id: 1051,
         name: 'T-Centralen',
-        sname: 'TCE',
         type: 'METROSTN',
       },
       stop_point: {
-        id: 20001,
+        id: 3052,
         name: 'T-Centralen',
-        designation: '1',
+        designation: '6',
       },
       line: {
-        id: 19,
-        designation: '19',
-        transport_mode: 'metro',
-        group_of_lines: 'Tunnelbanans gröna linje',
+        id: 11,
+        designation: '11',
+        transport_authority_id: 1,
+        transport_mode: 'METRO',
+        group_of_lines: 'Tunnelbanans blå linje',
       },
       deviations: [],
     },
     {
-      direction: 'Mörby centrum',
-      direction_code: 2,
-      via: '',
-      destination: 'Mörby centrum',
+      destination: 'Djurgårdsbrunn',
+      direction_code: 1,
+      direction: 'Djurgårdsbrunn',
       state: 'EXPECTED',
-      scheduled: '2025-04-01T14:35:00',
-      expected: '2025-04-01T14:35:00',
-      display: '4 min',
+      display: 'Nu',
+      scheduled: '2026-03-01T14:36:31',
+      expected: '2026-03-01T14:36:31',
       journey: {
-        id: 50002,
-        state: 'NORMALPROGRESS',
+        id: 2026030104926,
+        state: 'ATORIGIN',
         prediction_state: 'NORMAL',
-        passenger_level: 'MEDIUM',
       },
       stop_area: {
-        id: 10002,
+        id: 10291,
         name: 'T-Centralen',
-        sname: 'TCE',
-        type: 'METROSTN',
+        type: 'BUSTERM',
       },
       stop_point: {
-        id: 20002,
+        id: 10291,
         name: 'T-Centralen',
-        designation: '2',
+        designation: 'N',
       },
       line: {
-        id: 14,
-        designation: '14',
-        transport_mode: 'metro',
-        group_of_lines: 'Tunnelbanans röda linje',
+        id: 69,
+        designation: '69',
+        transport_authority_id: 1,
+        transport_mode: 'BUS',
       },
       deviations: [],
     },
@@ -124,75 +128,106 @@ export const slDeparturesResponse: SLDeparturesResponse = {
 };
 
 /**
- * Realistic fixture: SL departures with deviations
+ * Fixture: SL departures with deviations
+ *
+ * Source: derived from real data — departure-level and stop-level deviations
+ * observed on the Pendeltåg and blue metro lines at T-Centralen / Stockholm City.
  */
 export const slDeparturesWithDeviationsResponse: SLDeparturesResponse = {
   departures: [
     {
-      direction: 'Hagsätra',
-      direction_code: 1,
-      via: '',
-      destination: 'Hagsätra',
-      state: 'NOTEXPECTED',
-      scheduled: '2025-04-01T15:10:00',
-      expected: '2025-04-01T15:10:00',
-      display: '',
+      destination: 'Uppsala C',
+      direction_code: 2,
+      direction: 'Uppsala',
+      state: 'ATSTOP',
+      display: 'Nu',
+      scheduled: '2026-03-01T14:38:00',
+      expected: '2026-03-01T14:38:00',
       journey: {
-        id: 50003,
-        state: 'CANCELLED',
-        prediction_state: 'UNKNOWN',
-        passenger_level: 'UNKNOWN',
+        id: 2026030102242,
+        state: 'NORMALPROGRESS',
+        prediction_state: 'NORMAL',
       },
       stop_area: {
-        id: 10001,
-        name: 'T-Centralen',
-        sname: 'TCE',
-        type: 'METROSTN',
+        id: 5310,
+        name: 'Stockholm City',
+        type: 'RAILWSTN',
       },
       stop_point: {
-        id: 20001,
-        name: 'T-Centralen',
-        designation: '1',
+        id: 5312,
+        name: 'Stockholm City',
+        designation: '2',
       },
       line: {
-        id: 19,
-        designation: '19',
-        transport_mode: 'metro',
-        group_of_lines: 'Tunnelbanans gröna linje',
+        id: 40,
+        designation: '40',
+        transport_authority_id: 1,
+        transport_mode: 'TRAIN',
+        group_of_lines: 'Pendeltåg',
       },
       deviations: [
         {
-          importance: 5,
-          consequence: 'CANCELLED',
-          message: 'Signal failure between Gamla stan and Slussen. Expect delays.',
+          importance_level: 2,
+          consequence: 'INFORMATION',
+          message:
+            'Stockholm City: Hissen mellan norra mellanplanet och mötesplats Vasagatan är avstängd på grund av tekniskt fel.',
         },
       ],
     },
   ],
   stop_deviations: [
     {
-      importance: 8,
-      consequence: 'INFORMATION',
-      message: 'Reduced service on green line due to technical issues.',
+      id: 10449348,
+      importance_level: 2,
+      message: 'Korta tåg. Gå mot mitten av plattformen.',
+      scope: {
+        stop_areas: [
+          { id: 3031, name: 'Kungsträdgården', type: 'METROSTN' },
+          { id: 3131, name: 'Rådhuset', type: 'METROSTN' },
+        ],
+        stop_points: [
+          { id: 3051, name: 'T-Centralen', designation: '5' },
+          { id: 3052, name: 'T-Centralen', designation: '6' },
+        ],
+        lines: [
+          {
+            id: 10,
+            designation: '10',
+            transport_authority_id: 1,
+            transport_mode: 'METRO',
+            group_of_lines: 'Tunnelbanans blå linje',
+          },
+          {
+            id: 11,
+            designation: '11',
+            transport_authority_id: 1,
+            transport_mode: 'METRO',
+            group_of_lines: 'Tunnelbanans blå linje',
+          },
+        ],
+      },
     },
   ],
 };
 
 /**
- * Realistic fixture: SL lines grouped by transport mode
+ * Fixture: SL lines grouped by transport mode (from /lines)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/lines?transport_authority_id=1
+ * Trimmed to one representative line per mode.
  */
 export const slLinesResponse: SLLinesResponse = {
   metro: [
     {
       id: 19,
       gid: 9011001001900000,
-      name: 'Tunnelbanans gröna linje 19',
+      name: 'Gröna linjen',
       designation: '19',
-      transport_mode: 'metro',
+      transport_mode: 'METRO',
       group_of_lines: 'Tunnelbanans gröna linje',
-      transport_authority: { id: 1, name: 'SL' },
-      contractor: { id: 1, name: 'MTR Tunnelbanan' },
-      valid: { from: '2024-01-01' },
+      transport_authority: { id: 1, name: 'Storstockholms Lokaltrafik' },
+      contractor: { id: 27, name: 'Connecting Stockholm' },
+      valid: { from: '2007-08-24T00:00:00' },
     },
   ],
   tram: [],
@@ -200,26 +235,26 @@ export const slLinesResponse: SLLinesResponse = {
     {
       id: 40,
       gid: 9011001004000000,
-      name: 'Pendeltåg 40',
+      name: '',
       designation: '40',
-      transport_mode: 'train',
+      transport_mode: 'TRAIN',
       group_of_lines: 'Pendeltåg',
-      transport_authority: { id: 1, name: 'SL' },
-      contractor: { id: 2, name: 'SJ' },
-      valid: { from: '2024-01-01' },
+      transport_authority: { id: 1, name: 'Storstockholms Lokaltrafik' },
+      contractor: { id: 65, name: 'SJ Stockholmståg' },
+      valid: { from: '2017-08-23T00:00:00' },
     },
   ],
   bus: [
     {
       id: 1,
       gid: 9011001000100000,
-      name: 'Blåbuss 1',
+      name: '',
       designation: '1',
-      transport_mode: 'bus',
+      transport_mode: 'BUS',
       group_of_lines: 'Blåbuss',
-      transport_authority: { id: 1, name: 'SL' },
-      contractor: { id: 3, name: 'Keolis' },
-      valid: { from: '2024-01-01' },
+      transport_authority: { id: 1, name: 'Storstockholms Lokaltrafik' },
+      contractor: { id: 10, name: 'Keolis' },
+      valid: { from: '2007-08-24T00:00:00' },
     },
   ],
   ship: [],
@@ -228,47 +263,51 @@ export const slLinesResponse: SLLinesResponse = {
 };
 
 /**
- * Realistic fixture: SL stop points
+ * Fixture: SL stop point (from /stop-points)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/stop-points
+ * Filtered to T-Centralen platform 3 (blue line metro).
  */
 export const slStopPointsResponse: Array<SLStopPointFull> = [
   {
-    id: 20001,
-    gid: 9022001000010001,
-    pattern_point_gid: 9025001000010001,
+    id: 1051,
+    gid: 9022001001051001,
+    pattern_point_gid: 9025001000001051,
     name: 'T-Centralen',
-    sname: 'TCE',
-    designation: '1',
+    sname: 'T-Centralen',
+    designation: '3',
     local_num: 1,
-    type: 'METROSTN',
+    type: 'PLATFORM',
     has_entrance: true,
-    lat: 59.331264,
-    lon: 18.059547,
-    door_orientation: 90,
-    transport_authority: { id: 1, name: 'SL' },
+    lat: 59.3315327442894,
+    lon: 18.0608876677575,
+    door_orientation: 228,
+    transport_authority: { id: 1, name: 'Storstockholms Lokaltrafik' },
     stop_area: {
-      id: 10001,
+      id: 1051,
       name: 'T-Centralen',
-      sname: 'TCE',
       type: 'METROSTN',
     },
-    valid: { from: '2024-01-01' },
+    valid: { from: '2024-07-11T00:00:00' },
   },
 ];
 
 /**
- * Realistic fixture: SL transport authorities
+ * Fixture: SL transport authorities (from /transport-authorities)
+ *
+ * Source: GET https://transport.integration.sl.se/v1/transport-authorities
  */
 export const slTransportAuthoritiesResponse: Array<SLTransportAuthority> = [
   {
     id: 1,
     gid: 9010001000000000,
-    name: 'SL',
+    name: 'Storstockholms Lokaltrafik',
     formal_name: 'AB Storstockholms Lokaltrafik',
     code: 'SL',
     street: 'Lindhagensgatan 100',
     postal_code: 10573,
     city: 'Stockholm',
-    country: 'SE',
-    valid: { from: '2024-01-01' },
+    country: 'Sweden',
+    valid: { from: '2007-08-23T00:00:00' },
   },
 ];

@@ -2,127 +2,115 @@ import type { CombinedSLNearbyVehiclesResult } from '../../types/combined/nearby
 import type { GtfsVehiclePosition } from '../../types/gtfs/vehicle-positions';
 import type { SLStopPointFull } from '../../types/sl/transport';
 
-// Solna centrum coordinates
-const SOLNA = { lat: 59.3587, lon: 17.9976 };
-
-// ─── Mock GTFS vehicle positions near Solna Centrum ─────────────────
+// ─── Real GTFS vehicle positions near T-Centralen (site ID 9001) ────
 
 export const mockVehiclePositions: Array<GtfsVehiclePosition> = [
   {
-    id: 'vp-metro-1',
-    trip: { tripId: 'trip-m1', scheduleRelationship: 'SCHEDULED', directionId: 0 },
-    vehicle: { id: '9031001001004617' },
-    position: { latitude: SOLNA.lat + 0.0005, longitude: SOLNA.lon + 0.001, bearing: 96 },
+    id: '48151772374092874',
+    trip: { tripId: '14010000704215260', scheduleRelationship: 'SCHEDULED', directionId: 0 },
+    vehicle: { id: '9031001001004815' },
+    position: { latitude: 59.3312, longitude: 18.061, bearing: 59, speed: 2.5 },
     currentStatus: 'IN_TRANSIT_TO',
-    timestamp: 1709100900,
+    timestamp: 1772374092,
   },
   {
-    id: 'vp-bus-1',
-    trip: { tripId: 'trip-b1', scheduleRelationship: 'SCHEDULED', directionId: 1 },
-    vehicle: { id: '9031001007048590', label: 'Bus 113' },
-    position: {
-      latitude: SOLNA.lat - 0.001,
-      longitude: SOLNA.lon + 0.0005,
-      bearing: 180,
-      speed: 8.5,
-    },
+    id: '4711772374092768',
+    trip: { tripId: '14010000712345678', scheduleRelationship: 'SCHEDULED', directionId: 1 },
+    vehicle: { id: '9031001007000471', label: 'Buss 3' },
+    position: { latitude: 59.3321, longitude: 18.0608, bearing: 80, speed: 3.1 },
     currentStatus: 'IN_TRANSIT_TO',
-    timestamp: 1709100850,
+    timestamp: 1772374092,
   },
   {
-    id: 'vp-tram-1',
-    trip: { tripId: 'trip-t1', scheduleRelationship: 'SCHEDULED' },
-    vehicle: { id: '9031001002510002' },
-    position: { latitude: SOLNA.lat - 0.002, longitude: SOLNA.lon + 0.003, bearing: 270 },
+    id: '100241772374092456',
+    trip: { tripId: '14010200702563080', scheduleRelationship: 'SCHEDULED' },
+    vehicle: { id: '9031001002510024' },
+    position: { latitude: 59.3323, longitude: 18.0625, bearing: 88 },
     currentStatus: 'IN_TRANSIT_TO',
-    timestamp: 1709100800,
+    timestamp: 1772374091,
   },
   {
-    id: 'vp-far-away',
-    trip: { tripId: 'trip-f1', scheduleRelationship: 'SCHEDULED' },
-    vehicle: { id: 'far-vehicle' },
-    position: { latitude: 59.0, longitude: 18.0 },
+    id: '55681772374093060',
+    trip: { tripId: '14010000708150379', scheduleRelationship: 'SCHEDULED', directionId: 0 },
+    vehicle: { id: '9031001004505568' },
+    position: { latitude: 60.2041, longitude: 18.7436, bearing: 154, speed: 9.4 },
     currentStatus: 'IN_TRANSIT_TO',
-    timestamp: 1709100700,
+    timestamp: 1772374091,
   },
 ];
 
-// ─── Mock SL stop points near Solna Centrum ─────────────────────────
+// ─── Real SL stop points near T-Centralen ───────────────────────────
 
-const validity = { from: '2024-01-01' };
-const authority = { id: 1, name: 'SL' };
-
-function stopPoint(
-  overrides: Partial<SLStopPointFull> & {
-    id: number;
-    name: string;
-    lat: number;
-    lon: number;
-    stopAreaType: string;
-    stopAreaName: string;
-  },
-): SLStopPointFull {
-  return {
-    id: overrides.id,
-    gid: overrides.id,
-    pattern_point_gid: overrides.id,
-    name: overrides.name,
-    sname: overrides.name,
-    designation: overrides.designation ?? '',
-    local_num: 1,
-    type: overrides.stopAreaType,
-    has_entrance: false,
-    lat: overrides.lat,
-    lon: overrides.lon,
-    door_orientation: 0,
-    transport_authority: authority,
-    stop_area: {
-      id: overrides.id,
-      name: overrides.stopAreaName,
-      sname: overrides.stopAreaName,
-      type: overrides.stopAreaType,
-    },
-    valid: validity,
-  };
-}
+const authority = { id: 1, name: 'Storstockholms Lokaltrafik' };
 
 export const mockStopPoints: Array<SLStopPointFull> = [
-  stopPoint({
-    id: 1001,
-    name: 'Solna centrum',
-    designation: '2',
-    lat: SOLNA.lat + 0.0006,
-    lon: SOLNA.lon + 0.0003,
-    stopAreaType: 'METROSTN',
-    stopAreaName: 'Solna centrum',
-  }),
-  stopPoint({
-    id: 1002,
-    name: 'Solna centrum',
-    designation: 'G',
-    lat: SOLNA.lat - 0.0003,
-    lon: SOLNA.lon + 0.001,
-    stopAreaType: 'BUSTERM',
-    stopAreaName: 'Solna centrum',
-  }),
-  stopPoint({
-    id: 1003,
-    name: 'Solna centrum',
+  {
+    id: 1051,
+    gid: 9022001001051001,
+    pattern_point_gid: 9025001000001051,
+    name: 'T-Centralen',
+    sname: 'T-Centralen',
     designation: '3',
-    lat: SOLNA.lat - 0.003,
-    lon: SOLNA.lon + 0.003,
-    stopAreaType: 'TRAMSTN',
-    stopAreaName: 'Solna centrum tvärbanan',
-  }),
-  stopPoint({
-    id: 9999,
-    name: 'Far away stop',
-    designation: 'A',
-    lat: 58.0,
-    lon: 16.0,
-    stopAreaType: 'BUSTERM',
-    stopAreaName: 'Somewhere else',
-  }),
+    local_num: 1,
+    type: 'PLATFORM',
+    has_entrance: true,
+    lat: 59.3315327442894,
+    lon: 18.0608876677575,
+    door_orientation: 228,
+    transport_authority: authority,
+    stop_area: { id: 1051, name: 'T-Centralen', type: 'METROSTN' },
+    valid: { from: '2024-07-11T00:00:00' },
+  },
+  {
+    id: 10526,
+    gid: 9022001010291007,
+    pattern_point_gid: 9025001000010526,
+    name: 'T-Centralen',
+    sname: 'T-Centralen',
+    designation: 'M',
+    local_num: 7,
+    type: 'BUSSTOP',
+    has_entrance: false,
+    lat: 59.3318771958359,
+    lon: 18.0610106174182,
+    door_orientation: 208,
+    transport_authority: authority,
+    stop_area: { id: 10291, name: 'T-Centralen', type: 'BUSTERM' },
+    valid: { from: '2020-06-18T00:00:00' },
+  },
+  {
+    id: 4300,
+    gid: 9022001004301002,
+    pattern_point_gid: 9025001000004300,
+    name: 'T-Centralen',
+    sname: 'T-Centralen',
+    local_num: 2,
+    type: 'PLATFORM',
+    has_entrance: false,
+    lat: 59.3321035623807,
+    lon: 18.0621399810141,
+    door_orientation: 29,
+    transport_authority: authority,
+    stop_area: { id: 4301, name: 'T-Centralen', type: 'TRAMSTN' },
+    valid: { from: '2018-08-18T00:00:00' },
+  },
+  {
+    id: 50001,
+    gid: 9022001050001001,
+    pattern_point_gid: 9025001000050001,
+    name: 'Norsborg',
+    sname: 'Norsborg',
+    designation: '1',
+    local_num: 1,
+    type: 'PLATFORM',
+    has_entrance: false,
+    lat: 59.2436,
+    lon: 17.8147,
+    door_orientation: 0,
+    transport_authority: authority,
+    stop_area: { id: 50001, name: 'Norsborg', type: 'METROSTN' },
+    valid: { from: '2024-01-01' },
+  },
 ];
 
 // ─── Expected result ────────────────────────────────────────────────

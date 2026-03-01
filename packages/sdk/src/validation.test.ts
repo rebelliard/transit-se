@@ -29,7 +29,7 @@ describe('Valibot validation (validate: true)', () => {
       const result = await api.searchByName('T-Centralen');
 
       expect(result.stop_groups).toHaveLength(2);
-      expect(result.stop_groups[0].name).toBe('T-Centralen');
+      expect(result.stop_groups[0].name).toBe('T-Centralen T-bana');
     });
 
     it('should throw ValidationError on malformed response', async () => {

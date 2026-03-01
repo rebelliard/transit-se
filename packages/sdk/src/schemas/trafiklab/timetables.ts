@@ -1,21 +1,33 @@
 import * as v from 'valibot';
-import { AlertSchema, coordinatesEntries, TransportModeSchema } from '../common';
+import { coordinatesEntries, TransportModeSchema } from '../common';
 
-export const TrafiklabTimetableStopSchema = v.object({
+const TrafiklabAlertSchema = v.object({
+  type: v.string(),
+  title: v.string(),
+  text: v.string(),
+});
+
+const TrafiklabTimetableStopSchema = v.object({
   ...coordinatesEntries,
   id: v.string(),
   name: v.string(),
   transport_modes: v.array(TransportModeSchema),
-  alerts: v.array(AlertSchema),
+  alerts: v.array(TrafiklabAlertSchema),
 });
 
-export const TrafiklabRouteEndpointSchema = v.object({
+const TrafiklabCallStopSchema = v.object({
+  ...coordinatesEntries,
   id: v.string(),
   name: v.string(),
 });
 
-export const TrafiklabRouteSchema = v.object({
+const TrafiklabRouteEndpointSchema = v.object({
+  id: v.string(),
   name: v.string(),
+});
+
+const TrafiklabRouteSchema = v.object({
+  name: v.nullable(v.string()),
   designation: v.string(),
   transport_mode: TransportModeSchema,
   transport_mode_code: v.number(),
@@ -24,32 +36,39 @@ export const TrafiklabRouteSchema = v.object({
   destination: TrafiklabRouteEndpointSchema,
 });
 
-export const TrafiklabTripInfoSchema = v.object({
+const TrafiklabTripInfoSchema = v.object({
   trip_id: v.string(),
   start_date: v.string(),
   technical_number: v.number(),
 });
 
-export const TrafiklabPlatformSchema = v.object({
+const TrafiklabPlatformSchema = v.object({
   id: v.string(),
   designation: v.string(),
 });
 
-export const TrafiklabCallAtLocationSchema = v.object({
+const TrafiklabAgencySchema = v.object({
+  id: v.string(),
+  name: v.string(),
+  operator: v.string(),
+});
+
+const TrafiklabCallAtLocationSchema = v.object({
   scheduled: v.string(),
   realtime: v.string(),
   delay: v.number(),
   canceled: v.boolean(),
   route: TrafiklabRouteSchema,
   trip: TrafiklabTripInfoSchema,
-  stop: TrafiklabTimetableStopSchema,
+  agency: v.optional(TrafiklabAgencySchema),
+  stop: TrafiklabCallStopSchema,
   scheduled_platform: v.nullable(TrafiklabPlatformSchema),
   realtime_platform: v.nullable(TrafiklabPlatformSchema),
-  alerts: v.array(AlertSchema),
+  alerts: v.array(TrafiklabAlertSchema),
   is_realtime: v.boolean(),
 });
 
-export const TrafiklabTimetablesQuerySchema = v.object({
+const TrafiklabTimetablesQuerySchema = v.object({
   queryTime: v.string(),
   query: v.string(),
 });

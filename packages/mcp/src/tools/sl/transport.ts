@@ -26,10 +26,29 @@ export function registerSLTransportTools(server: McpServer, sl: SLTransportApi):
     getApiDescription(API_DESCRIPTIONS.sl_departures),
     {
       site_id: z.string().describe(API_DESCRIPTIONS.sl_departures.params.site_id),
+      forecast: z
+        .number()
+        .min(5)
+        .optional()
+        .describe(API_DESCRIPTIONS.sl_departures.params.forecast),
+      direction: z
+        .union([z.literal(1), z.literal(2)])
+        .optional()
+        .describe(API_DESCRIPTIONS.sl_departures.params.direction),
+      line: z.number().optional().describe(API_DESCRIPTIONS.sl_departures.params.line),
+      transport: z
+        .enum(['METRO', 'TRAM', 'TRAIN', 'BUS', 'SHIP', 'FERRY', 'TAXI'])
+        .optional()
+        .describe(API_DESCRIPTIONS.sl_departures.params.transport),
     },
-    async ({ site_id }) => {
+    async ({ site_id, forecast, direction, line, transport }) => {
       const id = Number(site_id);
-      const result = await sl.getDepartures(id);
+      const result = await sl.getDepartures(id, {
+        forecast,
+        direction,
+        line,
+        transport,
+      });
       return {
         content: [{ type: 'text', text: formatSLDepartures(result, id) }],
       };

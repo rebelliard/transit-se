@@ -98,11 +98,11 @@ If you've cloned the repo and want to run from source:
 
 ### SL tools (no API key required)
 
-| Tool            | Description                    | Key Parameters                                                            |
-| --------------- | ------------------------------ | ------------------------------------------------------------------------- |
-| `sl_departures` | Stockholm (SL) departures      | `site_id`: SL site ID (e.g. 9192)                                         |
-| `sl_sites`      | Search SL stations (cached)    | `query?`: station name                                                    |
-| `sl_deviations` | Service disruptions and alerts | `transport_modes?`: e.g. `["METRO"]`, `line_ids?`, `site_ids?`, `future?` |
+| Tool            | Description                    | Key Parameters                                                                                                                |
+| --------------- | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `sl_departures` | Stockholm (SL) departures      | `site_id`: SL site ID (e.g. 9192), `forecast?`: minutes, `direction?`: 1 or 2, `line?`: line ID, `transport?`: METRO/BUS/etc. |
+| `sl_sites`      | Search SL stations (cached)    | `query?`: station name                                                                                                        |
+| `sl_deviations` | Service disruptions and alerts | `transport_modes?`: e.g. `["METRO"]`, `line_ids?`, `site_ids?`, `future?`                                                     |
 
 ### Trafiklab tools (require `TRAFIKLAB_API_KEY`)
 

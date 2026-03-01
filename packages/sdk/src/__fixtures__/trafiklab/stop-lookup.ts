@@ -1,62 +1,93 @@
 import type { TrafiklabStopLookupResponse } from '../../types/trafiklab/stop-lookup';
 
 /**
- * Realistic fixture: searching for "T-Centralen"
+ * Real fixture: searching for "T-Centralen" (from live API 2026-03-01)
  */
 export const stopLookupSearchResponse: TrafiklabStopLookupResponse = {
-  timestamp: '2025-04-01T14:22:43',
+  timestamp: '2026-03-01T14:50:58',
   query: {
-    queryTime: '2025-04-01T14:22:00',
+    queryTime: '2026-03-01T14:50:58',
     query: 'T-Centralen',
   },
   stop_groups: [
     {
-      id: '740000001',
-      name: 'T-Centralen',
-      area_type: 'META_STOP',
-      average_daily_stop_times: 1250.5,
-      transport_modes: ['METRO', 'BUS', 'TRAIN'],
+      id: '740020749',
+      name: 'T-Centralen T-bana',
+      area_type: 'RIKSHALLPLATS',
+      average_daily_stop_times: 2023.35,
+      transport_modes: ['METRO'],
       stops: [
-        { id: '740000001-A', name: 'T-Centralen (tunnelbana)', lat: 59.3313, lon: 18.0597 },
-        { id: '740000001-B', name: 'T-Centralen (bussar)', lat: 59.3315, lon: 18.0601 },
+        {
+          id: '9825',
+          name: 'T-Centralen',
+          lat: 59.33166,
+          lon: 18.061694,
+        },
       ],
     },
     {
-      id: '740000002',
-      name: 'Stockholm Central',
+      id: '740035997',
+      name: 'T-Centralen Spårv',
       area_type: 'RIKSHALLPLATS',
-      average_daily_stop_times: 980.2,
-      transport_modes: ['TRAIN'],
-      stops: [{ id: '740000002-A', name: 'Stockholm Central', lat: 59.3309, lon: 18.0585 }],
+      average_daily_stop_times: 465.18,
+      transport_modes: ['BUS', 'TRAM'],
+      stops: [
+        {
+          id: '12736',
+          name: 'T-Centralen',
+          lat: 59.332098,
+          lon: 18.061943,
+        },
+        {
+          id: '12275',
+          name: 'T-Centralen',
+          lat: 59.33212,
+          lon: 18.062138,
+        },
+      ],
     },
   ],
 };
 
 /**
- * Realistic fixture: listing all stops (abbreviated)
+ * Real fixture: listing all stops — first 2 entries (from live API 2026-03-01)
  */
 export const stopLookupListResponse: TrafiklabStopLookupResponse = {
-  timestamp: '2025-04-01T14:25:00',
+  timestamp: '2026-03-01T14:51:21',
   query: {
-    queryTime: '2025-04-01T14:25:00',
+    queryTime: '2026-03-01T14:51:21',
     query: null,
   },
   stop_groups: [
     {
-      id: '740000001',
-      name: 'T-Centralen',
-      area_type: 'META_STOP',
-      average_daily_stop_times: 1250.5,
-      transport_modes: ['METRO', 'BUS', 'TRAIN'],
-      stops: [{ id: '740000001-A', name: 'T-Centralen (tunnelbana)', lat: 59.3313, lon: 18.0597 }],
+      id: '740050707',
+      name: 'Krigtjärnsvägen',
+      area_type: 'RIKSHALLPLATS',
+      average_daily_stop_times: 7.33,
+      transport_modes: ['BUS'],
+      stops: [
+        {
+          id: '70787',
+          name: 'Krigtjärnsvägen',
+          lat: 59.950485,
+          lon: 14.938174,
+        },
+      ],
     },
     {
-      id: '740020076',
-      name: 'Slussen',
-      area_type: 'META_STOP',
-      average_daily_stop_times: 890.3,
-      transport_modes: ['METRO', 'BUS', 'BOAT'],
-      stops: [{ id: '740020076-A', name: 'Slussen (tunnelbana)', lat: 59.3198, lon: 18.0723 }],
+      id: '740049719',
+      name: 'Tynninge',
+      area_type: 'RIKSHALLPLATS',
+      average_daily_stop_times: 19.07,
+      transport_modes: ['BUS'],
+      stops: [
+        {
+          id: '70164',
+          name: 'Tynninge',
+          lat: 59.084528,
+          lon: 15.260689,
+        },
+      ],
     },
   ],
 };

@@ -54,53 +54,53 @@ describe('TrafiklabTimetablesApi', () => {
 
     it('should parse departure response with route info', async () => {
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getDepartures('740000001');
+      const result = await api.getDepartures('740020749');
 
       expect(result.departures).toHaveLength(2);
       const dep = result.departures[0];
-      expect(dep.route.designation).toBe('19');
+      expect(dep.route.designation).toBe('13');
       expect(dep.route.transport_mode).toBe('METRO');
-      expect(dep.route.name).toBe('Gröna linjen');
-      expect(dep.route.direction).toBe('Hagsätra');
-      expect(dep.route.origin.name).toBe('Hässelby strand');
-      expect(dep.route.destination.name).toBe('Hagsätra');
+      expect(dep.route.name).toBe('Röda linjen');
+      expect(dep.route.direction).toBe('Ropsten');
+      expect(dep.route.origin.name).toBe('Norsborg');
+      expect(dep.route.destination.name).toBe('Ropsten');
     });
 
     it('should parse realtime delay data', async () => {
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getDepartures('740000001');
+      const result = await api.getDepartures('740020749');
 
       const withDelay = result.departures[0];
-      expect(withDelay.delay).toBe(90);
+      expect(withDelay.delay).toBe(118);
       expect(withDelay.is_realtime).toBe(true);
 
-      const noDelay = result.departures[1];
-      expect(noDelay.delay).toBe(0);
-      expect(noDelay.is_realtime).toBe(false);
+      const secondDep = result.departures[1];
+      expect(secondDep.delay).toBe(106);
+      expect(secondDep.is_realtime).toBe(true);
     });
 
     it('should parse platform information', async () => {
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getDepartures('740000001');
+      const result = await api.getDepartures('740020749');
 
-      expect(result.departures[0].scheduled_platform?.designation).toBe('1');
-      expect(result.departures[0].realtime_platform?.designation).toBe('1');
-      // Second departure has no realtime platform
-      expect(result.departures[1].realtime_platform).toBeNull();
+      expect(result.departures[0].scheduled_platform?.designation).toBe('3');
+      expect(result.departures[0].realtime_platform?.designation).toBe('3');
+      expect(result.departures[1].scheduled_platform?.designation).toBe('4');
+      expect(result.departures[1].realtime_platform?.designation).toBe('4');
     });
 
     it('should parse trip identifiers', async () => {
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getDepartures('740000001');
+      const result = await api.getDepartures('740020749');
 
-      expect(result.departures[0].trip.trip_id).toBe('trip-12345');
-      expect(result.departures[0].trip.start_date).toBe('2025-04-01');
-      expect(result.departures[0].trip.technical_number).toBe(42);
+      expect(result.departures[0].trip.trip_id).toBe('14010100702496794');
+      expect(result.departures[0].trip.start_date).toBe('2026-03-01');
+      expect(result.departures[0].trip.technical_number).toBe(26496);
     });
 
     it('should return stops metadata', async () => {
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getDepartures('740000001');
+      const result = await api.getDepartures('740020749');
 
       expect(result.stops).toHaveLength(1);
       expect(result.stops[0].transport_modes).toContain('METRO');
@@ -116,7 +116,8 @@ describe('TrafiklabTimetablesApi', () => {
 
       expect(result.departures[0].canceled).toBe(true);
       expect(result.departures[0].alerts).toHaveLength(1);
-      expect(result.departures[0].alerts[0].header).toBe('Trip canceled');
+      expect(result.departures[0].alerts[0].title).toBe('Trip canceled');
+      expect(result.departures[0].route.name).toBeNull();
     });
 
     it('should return stop-level alerts', async () => {
@@ -128,7 +129,15 @@ describe('TrafiklabTimetablesApi', () => {
       const result = await api.getDepartures('740000001');
 
       expect(result.stops[0].alerts).toHaveLength(1);
-      expect(result.stops[0].alerts[0].severity).toBe('WARNING');
+      expect(result.stops[0].alerts[0].type).toBe('MAINTENANCE');
+    });
+
+    it('should parse agency information', async () => {
+      const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
+      const result = await api.getDepartures('740020749');
+
+      expect(result.departures[0].agency?.name).toBe('AB Storstockholms Lokaltrafik');
+      expect(result.departures[0].agency?.operator).toBe('Connecting Stockholm');
     });
   });
 
@@ -163,11 +172,11 @@ describe('TrafiklabTimetablesApi', () => {
       );
 
       const api = new TrafiklabTimetablesApi({ apiKey: 'test-key' });
-      const result = await api.getArrivals('740000001');
+      const result = await api.getArrivals('740020749');
 
-      expect(result.arrivals).toHaveLength(1);
-      expect(result.arrivals[0].route.designation).toBe('13');
-      expect(result.arrivals[0].delay).toBe(0);
+      expect(result.arrivals).toHaveLength(2);
+      expect(result.arrivals[0].route.designation).toBe('17');
+      expect(result.arrivals[0].delay).toBe(78);
       expect(result.arrivals[0].is_realtime).toBe(true);
     });
   });

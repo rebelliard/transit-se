@@ -75,8 +75,8 @@ describe('GtfsTripUpdatesApi', () => {
       const result = await api.getTripUpdates('ul');
 
       expect(result[0].trip.directionId).toBe(0);
-      expect(result[0].trip.startTime).toBe('08:30:00');
-      expect(result[0].trip.startDate).toBe('20240228');
+      expect(result[0].trip.startTime).toBe('14:45:00');
+      expect(result[0].trip.startDate).toBe('20260301');
     });
 
     it('should parse vehicle descriptor', async () => {
@@ -84,8 +84,8 @@ describe('GtfsTripUpdatesApi', () => {
       const result = await api.getTripUpdates('ul');
 
       expect(result[0].vehicle).toBeDefined();
-      expect(result[0].vehicle!.id).toBe('vehicle-42');
-      expect(result[0].vehicle!.label).toBe('Bus 801');
+      expect(result[0].vehicle!.id).toBe('9031008000500546');
+      expect(result[0].vehicle!.label).toBe('Pendeltåg 43');
       expect(result[1].vehicle).toBeUndefined();
     });
 
@@ -94,12 +94,12 @@ describe('GtfsTripUpdatesApi', () => {
       const result = await api.getTripUpdates('ul');
 
       expect(result[0].stopTimeUpdates).toHaveLength(2);
-      expect(result[0].stopTimeUpdates[0].stopSequence).toBe(1);
-      expect(result[0].stopTimeUpdates[0].stopId).toBe('740000001');
-      expect(result[0].stopTimeUpdates[0].arrival?.delay).toBe(120);
-      expect(result[0].stopTimeUpdates[0].arrival?.time).toBe(1709101200);
-      expect(result[0].stopTimeUpdates[0].arrival?.uncertainty).toBe(30);
-      expect(result[0].stopTimeUpdates[0].departure?.delay).toBe(150);
+      expect(result[0].stopTimeUpdates[0].stopSequence).toBe(32);
+      expect(result[0].stopTimeUpdates[0].stopId).toBe('9022050013110001');
+      expect(result[0].stopTimeUpdates[0].arrival?.delay).toBe(412);
+      expect(result[0].stopTimeUpdates[0].arrival?.time).toBe(1772374012);
+      expect(result[0].stopTimeUpdates[0].arrival?.uncertainty).toBe(60);
+      expect(result[0].stopTimeUpdates[0].departure?.delay).toBe(412);
     });
 
     it('should map stop schedule relationship enums', async () => {
@@ -126,8 +126,8 @@ describe('GtfsTripUpdatesApi', () => {
       const api = new GtfsTripUpdatesApi({ apiKey: 'test-key' });
       const result = await api.getTripUpdates('ul');
 
-      expect(result[0].delay).toBe(120);
-      expect(result[0].timestamp).toBe(1709100900);
+      expect(result[0].delay).toBe(412);
+      expect(result[0].timestamp).toBe(1772374495);
     });
 
     it('should return empty array when no trip updates', async () => {

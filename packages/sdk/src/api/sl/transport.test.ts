@@ -76,7 +76,11 @@ describe('SLTransportApi', () => {
 
     it('should pass expand=true parameter', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
-        Promise.resolve(new Response(JSON.stringify(slSitesExpandedResponse), { status: 200 })),
+        Promise.resolve(
+          new Response(JSON.stringify(slSitesExpandedResponse), {
+            status: 200,
+          }),
+        ),
       );
 
       const api = new SLTransportApi();
@@ -97,12 +101,16 @@ describe('SLTransportApi', () => {
       expect(sites).toHaveLength(2);
       expect(sites[0].name).toBe('T-Centralen');
       expect(sites[0].id).toBe(9001);
-      expect(sites[0].lat).toBeCloseTo(59.3313, 3);
+      expect(sites[0].lat).toBeCloseTo(59.3314, 3);
     });
 
     it('should include stop_areas when expanded', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
-        Promise.resolve(new Response(JSON.stringify(slSitesExpandedResponse), { status: 200 })),
+        Promise.resolve(
+          new Response(JSON.stringify(slSitesExpandedResponse), {
+            status: 200,
+          }),
+        ),
       );
 
       const api = new SLTransportApi();
@@ -122,15 +130,74 @@ describe('SLTransportApi', () => {
       expect(url.pathname).toBe('/v1/sites/9001/departures');
     });
 
+    it('should pass no query params when options are omitted', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9001);
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.has('forecast')).toBe(false);
+      expect(url.searchParams.has('direction')).toBe(false);
+      expect(url.searchParams.has('line')).toBe(false);
+      expect(url.searchParams.has('transport')).toBe(false);
+    });
+
+    it('should pass forecast query param', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9192, { forecast: 30 });
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.get('forecast')).toBe('30');
+    });
+
+    it('should pass direction query param', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9192, { direction: 1 });
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.get('direction')).toBe('1');
+    });
+
+    it('should pass line query param', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9192, { line: 19 });
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.get('line')).toBe('19');
+    });
+
+    it('should pass transport query param', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9192, { transport: 'METRO' });
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.get('transport')).toBe('METRO');
+    });
+
+    it('should pass all filter params together', async () => {
+      const api = new SLTransportApi();
+      await api.getDepartures(9192, {
+        forecast: 120,
+        direction: 2,
+        line: 19,
+        transport: 'METRO',
+      });
+
+      const url = new URL(mockFetch.mock.calls[0][0] as string);
+      expect(url.searchParams.get('forecast')).toBe('120');
+      expect(url.searchParams.get('direction')).toBe('2');
+      expect(url.searchParams.get('line')).toBe('19');
+      expect(url.searchParams.get('transport')).toBe('METRO');
+    });
+
     it('should parse departure response', async () => {
       const api = new SLTransportApi();
       const result = await api.getDepartures(9001);
 
       expect(result.departures).toHaveLength(2);
-      expect(result.departures[0].line.designation).toBe('19');
-      expect(result.departures[0].line.transport_mode).toBe('metro');
-      expect(result.departures[0].display).toBe('1 min');
-      expect(result.departures[0].direction).toBe('Hässelby strand');
+      expect(result.departures[0].line.designation).toBe('11');
+      expect(result.departures[0].line.transport_mode).toBe('METRO');
+      expect(result.departures[0].display).toBe('3 min');
+      expect(result.departures[0].direction).toBe('Kungsträdgården');
     });
 
     it('should parse journey metadata', async () => {
@@ -138,7 +205,6 @@ describe('SLTransportApi', () => {
       const result = await api.getDepartures(9001);
 
       expect(result.departures[0].journey.state).toBe('NORMALPROGRESS');
-      expect(result.departures[0].journey.passenger_level).toBe('LOW');
     });
 
     it('should parse stop area and stop point', async () => {
@@ -146,13 +212,15 @@ describe('SLTransportApi', () => {
       const result = await api.getDepartures(9001);
 
       expect(result.departures[0].stop_area.type).toBe('METROSTN');
-      expect(result.departures[0].stop_point.designation).toBe('1');
+      expect(result.departures[0].stop_point.designation).toBe('6');
     });
 
     it('should handle departures with deviations', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
         Promise.resolve(
-          new Response(JSON.stringify(slDeparturesWithDeviationsResponse), { status: 200 }),
+          new Response(JSON.stringify(slDeparturesWithDeviationsResponse), {
+            status: 200,
+          }),
         ),
       );
 
@@ -160,14 +228,16 @@ describe('SLTransportApi', () => {
       const result = await api.getDepartures(9001);
 
       expect(result.departures[0].deviations).toHaveLength(1);
-      expect(result.departures[0].deviations[0].consequence).toBe('CANCELLED');
-      expect(result.departures[0].state).toBe('NOTEXPECTED');
+      expect(result.departures[0].deviations[0].consequence).toBe('INFORMATION');
+      expect(result.departures[0].state).toBe('ATSTOP');
     });
 
     it('should parse stop-level deviations', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
         Promise.resolve(
-          new Response(JSON.stringify(slDeparturesWithDeviationsResponse), { status: 200 }),
+          new Response(JSON.stringify(slDeparturesWithDeviationsResponse), {
+            status: 200,
+          }),
         ),
       );
 
@@ -175,7 +245,7 @@ describe('SLTransportApi', () => {
       const result = await api.getDepartures(9001);
 
       expect(result.stop_deviations).toHaveLength(1);
-      expect(result.stop_deviations[0].importance).toBe(8);
+      expect(result.stop_deviations[0].importance_level).toBe(2);
     });
   });
 
@@ -216,8 +286,8 @@ describe('SLTransportApi', () => {
       const api = new SLTransportApi();
       const lines = await api.getLines();
 
-      expect(lines.metro[0].transport_authority.name).toBe('SL');
-      expect(lines.metro[0].contractor.name).toBe('MTR Tunnelbanan');
+      expect(lines.metro[0].transport_authority.name).toBe('Storstockholms Lokaltrafik');
+      expect(lines.metro[0].contractor!.name).toBe('Connecting Stockholm');
     });
   });
 
@@ -245,7 +315,7 @@ describe('SLTransportApi', () => {
       expect(points).toHaveLength(1);
       expect(points[0].name).toBe('T-Centralen');
       expect(points[0].has_entrance).toBe(true);
-      expect(points[0].door_orientation).toBe(90);
+      expect(points[0].door_orientation).toBe(228);
       expect(points[0].stop_area.type).toBe('METROSTN');
     });
   });
@@ -254,7 +324,9 @@ describe('SLTransportApi', () => {
     it('should call correct URL', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
         Promise.resolve(
-          new Response(JSON.stringify(slTransportAuthoritiesResponse), { status: 200 }),
+          new Response(JSON.stringify(slTransportAuthoritiesResponse), {
+            status: 200,
+          }),
         ),
       );
 
@@ -268,7 +340,9 @@ describe('SLTransportApi', () => {
     it('should parse transport authority data', async () => {
       mockFetch.mockImplementation((_url: string | URL | Request, _init?: RequestInit) =>
         Promise.resolve(
-          new Response(JSON.stringify(slTransportAuthoritiesResponse), { status: 200 }),
+          new Response(JSON.stringify(slTransportAuthoritiesResponse), {
+            status: 200,
+          }),
         ),
       );
 
@@ -276,7 +350,7 @@ describe('SLTransportApi', () => {
       const authorities = await api.getTransportAuthorities();
 
       expect(authorities).toHaveLength(1);
-      expect(authorities[0].name).toBe('SL');
+      expect(authorities[0].name).toBe('Storstockholms Lokaltrafik');
       expect(authorities[0].formal_name).toBe('AB Storstockholms Lokaltrafik');
       expect(authorities[0].code).toBe('SL');
       expect(authorities[0].city).toBe('Stockholm');
@@ -295,8 +369,8 @@ describe('SLTransportApi', () => {
       expect(sites).toHaveLength(2);
       expect(sites[0].id).toBe(9001);
       expect(sites[0].name).toBe('T-Centralen');
-      expect(sites[0].lat).toBeCloseTo(59.3313, 3);
-      expect(sites[0].lon).toBeCloseTo(18.0595, 3);
+      expect(sites[0].lat).toBeCloseTo(59.3314, 3);
+      expect(sites[0].lon).toBeCloseTo(18.0604, 3);
     });
 
     it('should return cached data on subsequent calls', async () => {

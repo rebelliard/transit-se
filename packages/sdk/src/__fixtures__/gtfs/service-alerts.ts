@@ -9,31 +9,42 @@ const maintenanceFeed = FeedMessage.create({
   header: {
     gtfsRealtimeVersion: '2.0',
     incrementality: 0,
-    timestamp: 1709100000,
+    timestamp: 1772374000,
   },
   entity: [
     {
-      id: 'alert-1',
+      id: '33010000163741154',
       alert: {
-        activePeriod: [{ start: 1709100000, end: 1709200000 }],
-        informedEntity: [{ routeId: '1', stopId: '740000001' }],
-        cause: 9,
-        effect: 2,
+        activePeriod: [{ start: 1765959967, end: 1777586340 }],
+        informedEntity: [
+          { routeId: '9011003010700000', routeType: 0, stopId: '4467' },
+          { routeId: '9011003001100000', routeType: 0, stopId: '4246' },
+        ],
+        cause: 10,
+        effect: 8,
         headerText: {
-          translation: [{ text: 'Reducerad trafik på linje 1', language: 'sv' }],
+          translation: [
+            {
+              text: 'Hållplats Martallsvägen (Uppsala) trafikeras inte',
+              language: 'sv',
+            },
+          ],
         },
         descriptionText: {
           translation: [
-            { text: 'Linje 1 kör med reducerad turtäthet pga underhåll.', language: 'sv' },
+            {
+              text: 'Hållplats Martallsvägen (Uppsala) är indragen i båda riktningar och trafikeras inte av linje 11 och 107. Resande hänvisas till hållplats Spinnrocksvägen. Detta beror på vägarbete och gäller till och med 2026-04-30.',
+              language: 'sv',
+            },
           ],
         },
       },
     },
     {
-      id: 'alert-2',
+      id: '33010000166383924',
       alert: {
-        activePeriod: [{ start: 1709150000 }],
-        informedEntity: [{ agencyId: 'UL', routeId: '801' }],
+        activePeriod: [{ start: 1769143028 }],
+        informedEntity: [{ agencyId: 'UL', routeId: '9011003010000000' }],
         cause: 8,
         effect: 3,
         headerText: {
@@ -41,11 +52,14 @@ const maintenanceFeed = FeedMessage.create({
         },
         descriptionText: {
           translation: [
-            { text: 'Förseningar upp till 20 minuter pga halt väglag.', language: 'sv' },
+            {
+              text: 'Förseningar upp till 20 minuter pga halt väglag.',
+              language: 'sv',
+            },
           ],
         },
         url: {
-          translation: [{ text: 'https://ul.se/disruptions/123', language: 'sv' }],
+          translation: [{ text: 'https://ul.se/disruptions/166383924', language: 'sv' }],
         },
       },
     },
@@ -53,30 +67,36 @@ const maintenanceFeed = FeedMessage.create({
 });
 
 const emptyFeed = FeedMessage.create({
-  header: { gtfsRealtimeVersion: '2.0', incrementality: 0, timestamp: 1709100000 },
+  header: { gtfsRealtimeVersion: '2.0', incrementality: 0, timestamp: 1772374000 },
   entity: [],
 });
 
 const multiLanguageFeed = FeedMessage.create({
-  header: { gtfsRealtimeVersion: '2.0', incrementality: 0, timestamp: 1709100000 },
+  header: { gtfsRealtimeVersion: '2.0', incrementality: 0, timestamp: 1772374000 },
   entity: [
     {
-      id: 'alert-multi',
+      id: '33010000168085227',
       alert: {
-        activePeriod: [{ start: 1709100000, end: 1709200000 }],
-        informedEntity: [{ routeId: '3' }],
+        activePeriod: [{ start: 1771256402, end: 1773615540 }],
+        informedEntity: [{ routeId: '9011003000100000', routeType: 0, stopId: '4445' }],
         cause: 10,
         effect: 4,
         headerText: {
           translation: [
-            { text: 'Omlagd körväg linje 3', language: 'sv' },
-            { text: 'Line 3 rerouted', language: 'en' },
+            { text: 'Omlagd körväg linje 1', language: 'sv' },
+            { text: 'Line 1 rerouted', language: 'en' },
           ],
         },
         descriptionText: {
           translation: [
-            { text: 'Linje 3 kör via Storgatan pga vägarbete.', language: 'sv' },
-            { text: 'Line 3 rerouted via Storgatan due to road works.', language: 'en' },
+            {
+              text: 'Linje 1 kör via Storgatan pga vägarbete.',
+              language: 'sv',
+            },
+            {
+              text: 'Line 1 rerouted via Storgatan due to road works.',
+              language: 'en',
+            },
           ],
         },
       },
@@ -84,7 +104,7 @@ const multiLanguageFeed = FeedMessage.create({
   ],
 });
 
-/** Encoded protobuf: two alerts (maintenance + weather). */
+/** Encoded protobuf: two alerts (construction + weather). */
 export const gtfsServiceAlertsFeedBuffer = FeedMessage.encode(maintenanceFeed).finish();
 
 /** Encoded protobuf: no alerts. */
@@ -98,23 +118,27 @@ export const gtfsServiceAlertsMultiLangFeedBuffer = FeedMessage.encode(multiLang
 /** Expected output for the two-alert feed. */
 export const gtfsServiceAlertsResponse: Array<GtfsServiceAlert> = [
   {
-    id: 'alert-1',
-    cause: 'MAINTENANCE',
-    effect: 'REDUCED_SERVICE',
-    headerText: 'Reducerad trafik på linje 1',
-    descriptionText: 'Linje 1 kör med reducerad turtäthet pga underhåll.',
-    activePeriods: [{ start: 1709100000, end: 1709200000 }],
-    informedEntities: [{ routeId: '1', stopId: '740000001' }],
+    id: '33010000163741154',
+    cause: 'CONSTRUCTION',
+    effect: 'UNKNOWN_EFFECT',
+    headerText: 'Hållplats Martallsvägen (Uppsala) trafikeras inte',
+    descriptionText:
+      'Hållplats Martallsvägen (Uppsala) är indragen i båda riktningar och trafikeras inte av linje 11 och 107. Resande hänvisas till hållplats Spinnrocksvägen. Detta beror på vägarbete och gäller till och med 2026-04-30.',
+    activePeriods: [{ start: 1765959967, end: 1777586340 }],
+    informedEntities: [
+      { routeId: '9011003010700000', routeType: 0, stopId: '4467' },
+      { routeId: '9011003001100000', routeType: 0, stopId: '4246' },
+    ],
   },
   {
-    id: 'alert-2',
+    id: '33010000166383924',
     cause: 'WEATHER',
     effect: 'SIGNIFICANT_DELAYS',
     headerText: 'Förseningar pga väderförhållanden',
     descriptionText: 'Förseningar upp till 20 minuter pga halt väglag.',
-    url: 'https://ul.se/disruptions/123',
-    activePeriods: [{ start: 1709150000 }],
-    informedEntities: [{ agencyId: 'UL', routeId: '801' }],
+    url: 'https://ul.se/disruptions/166383924',
+    activePeriods: [{ start: 1769143028 }],
+    informedEntities: [{ agencyId: 'UL', routeId: '9011003010000000' }],
   },
 ];
 

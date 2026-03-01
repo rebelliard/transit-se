@@ -41,7 +41,7 @@ describe('GTFS Vehicle Positions MCP Tool', () => {
 
     const result = await vehiclePositionsApi.getVehiclePositions('ul');
     expect(result).toHaveLength(2);
-    expect(result[0].trip?.tripId).toBe('trip-abc-123');
+    expect(result[0].trip?.tripId).toBe('14010000664343260');
   });
 
   it('should pass operator to the API URL', async () => {

@@ -25,8 +25,8 @@ export const slSitesPath = {
           'application/json': {
             schema: { type: 'array', items: { type: 'object' } },
             example: [
-              { id: 9192, name: 'Slussen', lat: 59.320318, lon: 18.072453 },
-              { id: 9194, name: 'Slussen/Stadsgården', lat: 59.319796, lon: 18.074742 },
+              { id: 9192, name: 'Slussen', lat: 59.3203, lon: 18.0725 },
+              { id: 9001, name: 'T-Centralen', lat: 59.3314, lon: 18.0604 },
             ],
           },
         },
@@ -52,6 +52,41 @@ export const slDeparturesPath = {
         schema: { type: 'string' },
         example: '9192',
       },
+      {
+        name: 'forecast',
+        in: 'query',
+        required: false,
+        description: API_DESCRIPTIONS.sl_departures.params.forecast,
+        schema: { type: 'integer', minimum: 5 },
+        example: 60,
+      },
+      {
+        name: 'direction',
+        in: 'query',
+        required: false,
+        description: API_DESCRIPTIONS.sl_departures.params.direction,
+        schema: { type: 'integer', enum: [1, 2] },
+        example: undefined,
+      },
+      {
+        name: 'line',
+        in: 'query',
+        required: false,
+        description: API_DESCRIPTIONS.sl_departures.params.line,
+        schema: { type: 'integer' },
+        example: undefined,
+      },
+      {
+        name: 'transport',
+        in: 'query',
+        required: false,
+        description: API_DESCRIPTIONS.sl_departures.params.transport,
+        schema: {
+          type: 'string',
+          enum: ['METRO', 'TRAM', 'TRAIN', 'BUS', 'SHIP', 'FERRY', 'TAXI'],
+        },
+        example: undefined,
+      },
     ],
     responses: {
       '200': {
@@ -62,19 +97,28 @@ export const slDeparturesPath = {
             example: {
               departures: [
                 {
-                  destination: 'Fruängen',
+                  destination: 'Kungsträdgården',
                   direction_code: 2,
+                  direction: 'Kungsträdgården',
                   display: '3 min',
                   state: 'EXPECTED',
-                  scheduled: '2026-02-28T12:03:00',
-                  expected: '2026-02-28T12:04:30',
-                  line: {
-                    id: 19,
-                    designation: '19',
-                    transport_mode: 'METRO',
-                    group_of_lines: 'Gröna linjen',
+                  scheduled: '2026-03-01T14:34:00',
+                  expected: '2026-03-01T14:36:41',
+                  journey: {
+                    id: 2026030136046,
+                    state: 'NORMALPROGRESS',
+                    prediction_state: 'NORMAL',
                   },
-                  stop_area: { id: 1011, name: 'Slussen' },
+                  line: {
+                    id: 11,
+                    designation: '11',
+                    transport_authority_id: 1,
+                    transport_mode: 'METRO',
+                    group_of_lines: 'Tunnelbanans blå linje',
+                  },
+                  stop_area: { id: 1051, name: 'T-Centralen', type: 'METROSTN' },
+                  stop_point: { id: 3052, name: 'T-Centralen', designation: '6' },
+                  deviations: [],
                 },
               ],
               stop_deviations: [],
@@ -136,8 +180,15 @@ export const slDeviationsPath = {
             example: [
               {
                 deviation_case_id: 12345,
-                publish: { from: '2026-02-01T00:00:00', upto: '2026-03-31T23:59:59' },
-                priority: { importance_level: 5, influence_level: 3, urgency_level: 2 },
+                publish: {
+                  from: '2026-02-01T00:00:00',
+                  upto: '2026-03-31T23:59:59',
+                },
+                priority: {
+                  importance_level: 5,
+                  influence_level: 3,
+                  urgency_level: 2,
+                },
                 message_variants: [
                   {
                     header: 'Indragen hållplats',
@@ -147,7 +198,14 @@ export const slDeviationsPath = {
                   },
                 ],
                 scope: {
-                  lines: [{ id: 66, designation: '66', transport_mode: 'BUS', name: '66' }],
+                  lines: [
+                    {
+                      id: 66,
+                      designation: '66',
+                      transport_mode: 'BUS',
+                      name: '66',
+                    },
+                  ],
                   stop_areas: [{ id: 1511, name: 'Renstiernas gata' }],
                 },
               },

@@ -14,7 +14,7 @@ export type SLDeviationTransportMode =
 /**
  * Publication window for a deviation message.
  */
-export interface SLDeviationPublish {
+interface SLDeviationPublish {
   from: string;
   upto: string;
 }
@@ -23,7 +23,7 @@ export interface SLDeviationPublish {
  * Priority hints for sorting deviation messages.
  * All three fields are only used for ordering — use `importance_level` first.
  */
-export interface SLDeviationPriority {
+interface SLDeviationPriority {
   importance_level: number;
   influence_level: number;
   urgency_level: number;
@@ -32,7 +32,7 @@ export interface SLDeviationPriority {
 /**
  * A localised variant of a deviation message.
  */
-export interface SLDeviationMessageVariant {
+interface SLDeviationMessageVariant {
   header: string;
   details: string;
   /** Human-readable scope description, e.g. "Tunnelbanans röda linje 13, 14" */
@@ -44,7 +44,7 @@ export interface SLDeviationMessageVariant {
 /**
  * A stop point within a deviation's affected stop area.
  */
-export interface SLDeviationStopPoint {
+interface SLDeviationStopPoint {
   id: number;
   name: string;
 }
@@ -52,7 +52,7 @@ export interface SLDeviationStopPoint {
 /**
  * A stop area (station) affected by a deviation.
  */
-export interface SLDeviationStopArea {
+interface SLDeviationStopArea {
   id: number;
   name: string;
   type: string;
@@ -63,7 +63,7 @@ export interface SLDeviationStopArea {
 /**
  * A transit line affected by a deviation.
  */
-export interface SLDeviationLine {
+interface SLDeviationLine {
   id: number;
   transport_authority: number;
   designation: string;
@@ -75,7 +75,7 @@ export interface SLDeviationLine {
 /**
  * The scope of a deviation: which stop areas and/or lines are affected.
  */
-export interface SLDeviationScope {
+interface SLDeviationScope {
   stop_areas?: Array<SLDeviationStopArea>;
   lines?: Array<SLDeviationLine>;
 }
@@ -83,7 +83,7 @@ export interface SLDeviationScope {
 /**
  * A category tag on a deviation (e.g. FACILITY/LIFT, FACILITY/ESCALATOR).
  */
-export interface SLDeviationCategory {
+interface SLDeviationCategory {
   group: string;
   type: string;
 }

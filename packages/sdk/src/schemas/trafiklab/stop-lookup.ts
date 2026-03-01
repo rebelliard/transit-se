@@ -1,15 +1,15 @@
 import * as v from 'valibot';
 import { coordinatesEntries, TransportModeSchema } from '../common';
 
-export const TrafiklabStopSchema = v.object({
+const TrafiklabStopSchema = v.object({
   ...coordinatesEntries,
   id: v.string(),
   name: v.string(),
 });
 
-export const TrafiklabAreaTypeSchema = v.picklist(['META_STOP', 'RIKSHALLPLATS']);
+const TrafiklabAreaTypeSchema = v.picklist(['META_STOP', 'RIKSHALLPLATS']);
 
-export const TrafiklabStopGroupSchema = v.object({
+const TrafiklabStopGroupSchema = v.object({
   id: v.string(),
   name: v.string(),
   area_type: TrafiklabAreaTypeSchema,
@@ -18,7 +18,7 @@ export const TrafiklabStopGroupSchema = v.object({
   stops: v.array(TrafiklabStopSchema),
 });
 
-export const TrafiklabStopLookupQuerySchema = v.object({
+const TrafiklabStopLookupQuerySchema = v.object({
   queryTime: v.string(),
   query: v.nullable(v.string()),
 });

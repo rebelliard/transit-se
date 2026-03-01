@@ -65,10 +65,10 @@ describe('GtfsVehiclePositionsApi', () => {
       const result = await api.getVehiclePositions('ul');
 
       expect(result[0].position).toBeDefined();
-      expect(result[0].position!.latitude).toBeCloseTo(59.8586, 4);
-      expect(result[0].position!.longitude).toBeCloseTo(17.6389, 4);
-      expect(result[0].position!.bearing).toBe(180);
-      expect(result[0].position!.speed).toBe(12.5);
+      expect(result[0].position!.latitude).toBeCloseTo(59.33179, 4);
+      expect(result[0].position!.longitude).toBeCloseTo(18.02621, 4);
+      expect(result[0].position!.bearing).toBe(90);
+      expect(result[0].position!.speed).toBeCloseTo(10.6, 1);
     });
 
     it('should parse vehicle descriptor', async () => {
@@ -76,19 +76,19 @@ describe('GtfsVehiclePositionsApi', () => {
       const result = await api.getVehiclePositions('ul');
 
       expect(result[0].vehicle).toBeDefined();
-      expect(result[0].vehicle!.id).toBe('vehicle-42');
-      expect(result[0].vehicle!.label).toBe('Bus 801');
-      expect(result[0].vehicle!.licensePlate).toBe('ABC123');
+      expect(result[0].vehicle!.id).toBe('9031001001004806');
+      expect(result[0].vehicle!.label).toBe('Pendeltåg 43');
+      expect(result[0].vehicle!.licensePlate).toBe('SL4806');
     });
 
     it('should parse trip descriptor', async () => {
       const api = new GtfsVehiclePositionsApi({ apiKey: 'test-key' });
       const result = await api.getVehiclePositions('ul');
 
-      expect(result[0].trip?.routeId).toBe('801');
+      expect(result[0].trip?.routeId).toBe('9011001004300000');
       expect(result[0].trip?.directionId).toBe(0);
-      expect(result[0].trip?.startTime).toBe('08:30:00');
-      expect(result[0].trip?.startDate).toBe('20240228');
+      expect(result[0].trip?.startTime).toBe('14:45:00');
+      expect(result[0].trip?.startDate).toBe('20260301');
       expect(result[0].trip?.scheduleRelationship).toBe('SCHEDULED');
     });
 
@@ -121,16 +121,16 @@ describe('GtfsVehiclePositionsApi', () => {
       const api = new GtfsVehiclePositionsApi({ apiKey: 'test-key' });
       const result = await api.getVehiclePositions('ul');
 
-      expect(result[0].currentStopSequence).toBe(5);
-      expect(result[0].stopId).toBe('740000001');
+      expect(result[0].currentStopSequence).toBe(12);
+      expect(result[0].stopId).toBe('9022050013110001');
     });
 
     it('should parse timestamp', async () => {
       const api = new GtfsVehiclePositionsApi({ apiKey: 'test-key' });
       const result = await api.getVehiclePositions('ul');
 
-      expect(result[0].timestamp).toBe(1709100900);
-      expect(result[1].timestamp).toBe(1709100800);
+      expect(result[0].timestamp).toBe(1772374517);
+      expect(result[1].timestamp).toBe(1772374517);
     });
 
     it('should return empty array when no vehicle positions', async () => {

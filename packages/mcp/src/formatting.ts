@@ -74,9 +74,7 @@ function formatCallAtLocation(
   const platform = entry.realtime_platform?.designation ?? entry.scheduled_platform?.designation;
   const platStr = platform ? `  Platform ${platform}` : '';
   const alerts =
-    entry.alerts.length > 0
-      ? '\n      Alerts: ' + entry.alerts.map((a) => a.header).join('; ')
-      : '';
+    entry.alerts.length > 0 ? '\n      Alerts: ' + entry.alerts.map((a) => a.title).join('; ') : '';
 
   const routeName = entry.route.name ? `${entry.route.name} | ` : '';
 
@@ -101,7 +99,7 @@ export function formatTrafiklabDepartures(res: TrafiklabDeparturesResponse): str
   // Show stop-level alerts
   for (const stop of res.stops) {
     for (const alert of stop.alerts) {
-      lines.push(`  ⚠ ${alert.header}: ${alert.details}`);
+      lines.push(`  ⚠ ${alert.title}: ${alert.text}`);
     }
   }
 
@@ -122,7 +120,7 @@ export function formatTrafiklabArrivals(res: TrafiklabArrivalsResponse): string 
 
   for (const stop of res.stops) {
     for (const alert of stop.alerts) {
-      lines.push(`  ⚠ ${alert.header}: ${alert.details}`);
+      lines.push(`  ⚠ ${alert.title}: ${alert.text}`);
     }
   }
 
@@ -151,17 +149,15 @@ export function formatSLDepartures(res: SLDeparturesResponse, siteId: number): s
   }
 
   for (const dep of res.departures) {
-    const mode = dep.line.transport_mode.toUpperCase();
+    const mode = dep.line.transport_mode;
     const deviations =
       dep.deviations.length > 0
         ? '\n      Disruptions: ' + dep.deviations.map((d) => d.message).join('; ')
         : '';
-    const passenger =
-      dep.journey.passenger_level !== 'UNKNOWN' ? `  Crowding: ${dep.journey.passenger_level}` : '';
-
+    const platform = dep.stop_point.designation ? `  (Platform ${dep.stop_point.designation})` : '';
     lines.push(
       `  ${dep.display.padEnd(8)} ${mode} ${dep.line.designation} → ${dep.destination}` +
-        `  (Platform ${dep.stop_point.designation})${passenger}` +
+        platform +
         deviations,
     );
   }

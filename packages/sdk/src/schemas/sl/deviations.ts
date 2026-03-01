@@ -1,6 +1,6 @@
 import * as v from 'valibot';
 
-export const SLDeviationTransportModeSchema = v.picklist([
+const SLDeviationTransportModeSchema = v.picklist([
   'BUS',
   'METRO',
   'TRAM',
@@ -10,18 +10,18 @@ export const SLDeviationTransportModeSchema = v.picklist([
   'TAXI',
 ]);
 
-export const SLDeviationPublishSchema = v.object({
+const SLDeviationPublishSchema = v.object({
   from: v.string(),
   upto: v.string(),
 });
 
-export const SLDeviationPrioritySchema = v.object({
+const SLDeviationPrioritySchema = v.object({
   importance_level: v.number(),
   influence_level: v.number(),
   urgency_level: v.number(),
 });
 
-export const SLDeviationMessageVariantSchema = v.object({
+const SLDeviationMessageVariantSchema = v.object({
   header: v.string(),
   details: v.string(),
   scope_alias: v.string(),
@@ -29,12 +29,12 @@ export const SLDeviationMessageVariantSchema = v.object({
   weblink: v.optional(v.string()),
 });
 
-export const SLDeviationStopPointSchema = v.object({
+const SLDeviationStopPointSchema = v.object({
   id: v.number(),
   name: v.string(),
 });
 
-export const SLDeviationStopAreaSchema = v.object({
+const SLDeviationStopAreaSchema = v.object({
   id: v.number(),
   name: v.string(),
   type: v.string(),
@@ -42,7 +42,7 @@ export const SLDeviationStopAreaSchema = v.object({
   stop_points: v.optional(v.array(SLDeviationStopPointSchema)),
 });
 
-export const SLDeviationLineSchema = v.object({
+const SLDeviationLineSchema = v.object({
   id: v.number(),
   transport_authority: v.number(),
   designation: v.string(),
@@ -51,17 +51,17 @@ export const SLDeviationLineSchema = v.object({
   group_of_lines: v.string(),
 });
 
-export const SLDeviationScopeSchema = v.object({
+const SLDeviationScopeSchema = v.object({
   stop_areas: v.optional(v.array(SLDeviationStopAreaSchema)),
   lines: v.optional(v.array(SLDeviationLineSchema)),
 });
 
-export const SLDeviationCategorySchema = v.object({
+const SLDeviationCategorySchema = v.object({
   group: v.string(),
   type: v.string(),
 });
 
-export const SLDeviationMessageSchema = v.object({
+const SLDeviationMessageSchema = v.object({
   version: v.number(),
   created: v.string(),
   modified: v.optional(v.string()),

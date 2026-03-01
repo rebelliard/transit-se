@@ -1,13 +1,15 @@
 /**
- * SL Transport API transport mode strings (lowercase).
+ * SL Transport API transport mode strings.
+ *
+ * The /lines and /departures endpoints return UPPERCASE values.
  */
-export type SLTransportMode = 'metro' | 'tram' | 'train' | 'bus' | 'ship' | 'ferry' | 'taxi';
+type SLTransportMode = 'METRO' | 'TRAM' | 'TRAIN' | 'BUS' | 'SHIP' | 'FERRY' | 'TAXI';
 
 /**
  * Known values for `group_of_lines` on SL lines and departures.
  * Absent for regular buses, some ships, and taxi.
  */
-export type SLGroupOfLines =
+type SLGroupOfLines =
   | 'Tunnelbanans blå linje'
   | 'Tunnelbanans gröna linje'
   | 'Tunnelbanans röda linje'
@@ -26,7 +28,7 @@ export type SLGroupOfLines =
 /**
  * Validity period for SL resources.
  */
-export interface ValidityPeriod {
+interface ValidityPeriod {
   from: string;
   to?: string;
 }
@@ -34,7 +36,7 @@ export interface ValidityPeriod {
 /**
  * Transport authority reference embedded in SL resources.
  */
-export interface SLTransportAuthorityRef {
+interface SLTransportAuthorityRef {
   id: number;
   name: string;
 }
@@ -42,7 +44,7 @@ export interface SLTransportAuthorityRef {
 /**
  * Contractor reference embedded in SL line data.
  */
-export interface SLContractor {
+interface SLContractor {
   id: number;
   name: string;
 }
@@ -54,19 +56,19 @@ export interface SLTransportAuthority {
   id: number;
   gid: number;
   name: string;
-  formal_name: string;
+  formal_name?: string;
   code: string;
-  street: string;
-  postal_code: number;
-  city: string;
-  country: string;
+  street?: string;
+  postal_code?: number;
+  city?: string;
+  country?: string;
   valid: ValidityPeriod;
 }
 
 /**
  * An SL transit line.
  */
-export interface SLLine {
+interface SLLine {
   id: number;
   gid: number;
   name: string;
@@ -74,7 +76,7 @@ export interface SLLine {
   transport_mode: SLTransportMode;
   group_of_lines?: SLGroupOfLines;
   transport_authority: SLTransportAuthorityRef;
-  contractor: SLContractor;
+  contractor?: SLContractor;
   valid: ValidityPeriod;
 }
 
@@ -113,7 +115,9 @@ export interface SLSite {
   id: number;
   gid: number;
   name: string;
-  abbreviation: string;
+  alias?: Array<string>;
+  note?: string;
+  abbreviation?: string;
   lat: number;
   lon: number;
   stop_areas?: Array<number>;
@@ -123,20 +127,20 @@ export interface SLSite {
 /**
  * Stop area details within a departure.
  */
-export interface SLStopArea {
+interface SLStopArea {
   id: number;
   name: string;
-  sname: string;
+  sname?: string;
   type: string;
 }
 
 /**
  * Stop point details within a departure.
  */
-export interface SLStopPoint {
+interface SLStopPoint {
   id: number;
   name: string;
-  designation: string;
+  designation?: string;
 }
 
 /**
@@ -148,7 +152,7 @@ export interface SLStopPointFull {
   pattern_point_gid: number;
   name: string;
   sname: string;
-  designation: string;
+  designation?: string;
   local_num: number;
   type: string;
   has_entrance: boolean;
@@ -161,10 +165,10 @@ export interface SLStopPointFull {
 }
 
 /**
- * SL deviation/disruption message.
+ * Departure-level deviation/disruption.
  */
-export interface SLDeviation {
-  importance: number;
+interface SLDeviation {
+  importance_level: number;
   consequence: string;
   message: string;
 }
@@ -172,19 +176,19 @@ export interface SLDeviation {
 /**
  * Journey metadata for an SL departure.
  */
-export interface SLJourney {
+interface SLJourney {
   id: number;
   state: string;
-  prediction_state: string;
-  passenger_level: string;
+  prediction_state?: string;
 }
 
 /**
  * Line info embedded in an SL departure.
  */
-export interface SLDepartureLine {
+interface SLDepartureLine {
   id: number;
   designation: string;
+  transport_authority_id?: number;
   transport_mode: SLTransportMode;
   group_of_lines?: SLGroupOfLines;
 }
@@ -192,10 +196,10 @@ export interface SLDepartureLine {
 /**
  * An SL departure entry.
  */
-export interface SLDeparture {
+interface SLDeparture {
   direction: string;
   direction_code: number;
-  via: string;
+  via?: string;
   destination: string;
   state: string;
   scheduled: string;
@@ -209,12 +213,40 @@ export interface SLDeparture {
 }
 
 /**
- * Stop-level deviation.
+ * Stop-level deviation in the departures response.
  */
-export interface SLStopDeviation {
-  importance: number;
-  consequence: string;
+interface SLStopDeviation {
+  id: number;
+  importance_level: number;
   message: string;
+  scope?: {
+    stop_areas?: Array<{ id: number; name: string; type: string }>;
+    stop_points?: Array<{ id: number; name: string; designation?: string }>;
+    lines?: Array<{
+      id: number;
+      designation: string;
+      transport_authority_id: number;
+      transport_mode: SLTransportMode;
+      group_of_lines?: string;
+    }>;
+  };
+}
+
+/**
+ * Optional filters for the SL departures endpoint.
+ */
+export interface SLDeparturesOptions {
+  /**
+   * Forecast window in minutes (default: 60, minimum: 5).
+   * Limits how far ahead departures are returned.
+   */
+  forecast?: number;
+  /** Direction code (1 or 2) to filter departures by travel direction. */
+  direction?: number;
+  /** Line ID to filter departures to a single line. */
+  line?: number;
+  /** Transport mode filter (e.g. "METRO", "BUS"). */
+  transport?: SLTransportMode;
 }
 
 /**

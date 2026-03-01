@@ -1,19 +1,38 @@
-import type { Alert, Coordinates, TransportMode } from '../common';
+import type { Coordinates, TransportMode } from '../common';
 
 /**
- * A stop in the timetables response.
+ * An alert/disruption message from the Trafiklab Timetables API.
  */
-export interface TrafiklabTimetableStop extends Coordinates {
+interface TrafiklabAlert {
+  type: string;
+  title: string;
+  text: string;
+}
+
+/**
+ * A stop in the top-level `stops` array of a timetables response.
+ * Includes transport modes and alerts.
+ */
+interface TrafiklabTimetableStop extends Coordinates {
   id: string;
   name: string;
   transport_modes: Array<TransportMode>;
-  alerts: Array<Alert>;
+  alerts: Array<TrafiklabAlert>;
+}
+
+/**
+ * A stop reference inside a departure or arrival entry.
+ * Simpler than `TrafiklabTimetableStop` — no modes or alerts.
+ */
+interface TrafiklabCallStop extends Coordinates {
+  id: string;
+  name: string;
 }
 
 /**
  * Origin or destination reference for a route.
  */
-export interface TrafiklabRouteEndpoint {
+interface TrafiklabRouteEndpoint {
   id: string;
   name: string;
 }
@@ -21,8 +40,8 @@ export interface TrafiklabRouteEndpoint {
 /**
  * Route information for a departure or arrival.
  */
-export interface TrafiklabRoute {
-  name: string;
+interface TrafiklabRoute {
+  name: string | null;
   designation: string;
   transport_mode: TransportMode;
   transport_mode_code: number;
@@ -34,7 +53,7 @@ export interface TrafiklabRoute {
 /**
  * Trip identifier for a departure or arrival.
  */
-export interface TrafiklabTripInfo {
+interface TrafiklabTripInfo {
   trip_id: string;
   start_date: string;
   technical_number: number;
@@ -43,9 +62,18 @@ export interface TrafiklabTripInfo {
 /**
  * Platform information.
  */
-export interface TrafiklabPlatform {
+interface TrafiklabPlatform {
   id: string;
   designation: string;
+}
+
+/**
+ * Agency/operator information for a departure or arrival.
+ */
+interface TrafiklabAgency {
+  id: string;
+  name: string;
+  operator: string;
 }
 
 /**
@@ -58,17 +86,18 @@ export interface TrafiklabCallAtLocation {
   canceled: boolean;
   route: TrafiklabRoute;
   trip: TrafiklabTripInfo;
-  stop: TrafiklabTimetableStop;
+  agency?: TrafiklabAgency;
+  stop: TrafiklabCallStop;
   scheduled_platform: TrafiklabPlatform | null;
   realtime_platform: TrafiklabPlatform | null;
-  alerts: Array<Alert>;
+  alerts: Array<TrafiklabAlert>;
   is_realtime: boolean;
 }
 
 /**
  * Query metadata in a timetables response.
  */
-export interface TrafiklabTimetablesQuery {
+interface TrafiklabTimetablesQuery {
   queryTime: string;
   query: string;
 }

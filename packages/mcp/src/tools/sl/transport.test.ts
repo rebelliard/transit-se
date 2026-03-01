@@ -43,8 +43,25 @@ describe('SL Transport MCP Tools', () => {
 
     const result = await sl.getDepartures(9001);
     expect(result.departures).toHaveLength(2);
-    expect(result.departures[0].line.designation).toBe('19');
-    expect(result.departures[0].display).toBe('1 min');
+    expect(result.departures[0].line.designation).toBe('11');
+    expect(result.departures[0].display).toBe('3 min');
+  });
+
+  it('sl_departures should pass optional filter params to the SDK', async () => {
+    registerSLTransportTools(server, sl);
+
+    await sl.getDepartures(9192, {
+      forecast: 30,
+      direction: 1,
+      line: 19,
+      transport: 'METRO',
+    });
+
+    const url = new URL(mockFetch.mock.calls[0][0] as string);
+    expect(url.searchParams.get('forecast')).toBe('30');
+    expect(url.searchParams.get('direction')).toBe('1');
+    expect(url.searchParams.get('line')).toBe('19');
+    expect(url.searchParams.get('transport')).toBe('METRO');
   });
 
   it('sl_sites should search sites by name', async () => {

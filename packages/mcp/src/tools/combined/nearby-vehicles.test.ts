@@ -11,8 +11,13 @@ import { CombinedSLNearbyVehiclesApi } from '../../../../sdk/src/api/combined/ne
 import { formatCombinedSLNearbyVehicles } from '../../formatting';
 import { registerCombinedSLNearbyVehiclesTools } from './nearby-vehicles';
 
-const SOLNA: SLSiteEntry = { id: 9305, name: 'Solna centrum', lat: 59.3587, lon: 17.9976 };
-const mockSites: Array<SLSiteEntry> = [SOLNA];
+const T_CENTRALEN: SLSiteEntry = {
+  id: 9001,
+  name: 'T-Centralen',
+  lat: 59.3314,
+  lon: 18.0604,
+};
+const mockSites: Array<SLSiteEntry> = [T_CENTRALEN];
 
 function createMockApis() {
   return {
@@ -55,16 +60,16 @@ describe('Combined SL Nearby Vehicles MCP Tool', () => {
   it('should return nearby vehicles with transport modes', async () => {
     registerCombinedSLNearbyVehiclesTools(server, api);
 
-    const result = await api.getNearbyVehicles({ siteName: 'Solna centrum' });
+    const result = await api.getNearbyVehicles({ siteName: 'T-Centralen' });
     expect(result.vehicles.length).toBeGreaterThan(0);
     expect(result.activeModes.length).toBeGreaterThan(0);
   });
 
   it('should format output as readable text', async () => {
-    const result = await api.getNearbyVehicles({ siteName: 'Solna centrum' });
+    const result = await api.getNearbyVehicles({ siteName: 'T-Centralen' });
     const text = formatCombinedSLNearbyVehicles(result);
 
-    expect(text).toContain('Solna centrum');
+    expect(text).toContain('T-Centralen');
     expect(text).toContain('METRO');
     expect(text).toContain('BUS');
   });
@@ -84,14 +89,14 @@ describe('Combined SL Nearby Vehicles MCP Tool', () => {
   it('should accept site_id parameter', async () => {
     registerCombinedSLNearbyVehiclesTools(server, api);
 
-    const result = await api.getNearbyVehicles({ siteId: 9305 });
-    expect(result.location.siteId).toBe(9305);
+    const result = await api.getNearbyVehicles({ siteId: 9001 });
+    expect(result.location.siteId).toBe(9001);
   });
 
   it('should accept lat/lon parameters', async () => {
     registerCombinedSLNearbyVehiclesTools(server, api);
 
-    const result = await api.getNearbyVehicles({ latitude: 59.3587, longitude: 17.9976 });
+    const result = await api.getNearbyVehicles({ latitude: 59.3314, longitude: 18.0604 });
     expect(result.vehicles.length).toBeGreaterThan(0);
   });
 });

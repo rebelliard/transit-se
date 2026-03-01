@@ -85,6 +85,13 @@ for (const dep of deps.departures) {
   console.log(`${dep.display} ${dep.line.designation} → ${dep.destination}`);
 }
 
+// Filter departures: only metro, direction 1, next 30 minutes
+const filtered = await sl.getDepartures(9192, {
+  transport: 'METRO',
+  direction: 1,
+  forecast: 30,
+});
+
 // All sites, lines (grouped by mode), stop points
 const sites = await sl.getSites();
 const lines = await sl.getLines();
@@ -97,17 +104,17 @@ const matches = await sl.searchSitesByName('central');
 const allCached = await sl.getCachedSites();
 ```
 
-| Method                      | Endpoint                        | Description                              |
-| --------------------------- | ------------------------------- | ---------------------------------------- |
-| `getSites(expand?)`         | `GET /v1/sites`                 | List all sites (full response)           |
-| `getDepartures(siteId)`     | `GET /v1/sites/{id}/departures` | Departures from a site                   |
-| `getLines()`                | `GET /v1/lines`                 | Lines grouped by mode                    |
-| `getStopPoints()`           | `GET /v1/stop-points`           | List all stop points                     |
-| `getTransportAuthorities()` | `GET /v1/transport-authorities` | List transport authorities               |
-| `getCachedSites()`          | Cached                          | All sites (fetched once, then in-memory) |
-| `getSiteById(id)`           | Cached                          | Look up a site by numeric ID             |
-| `getSiteByName(name)`       | Cached                          | Look up a site by exact name             |
-| `searchSitesByName(query)`  | Cached                          | Search sites by name substring           |
+| Method                            | Endpoint                        | Description                                  |
+| --------------------------------- | ------------------------------- | -------------------------------------------- |
+| `getSites(expand?)`               | `GET /v1/sites`                 | List all sites (full response)               |
+| `getDepartures(siteId, options?)` | `GET /v1/sites/{id}/departures` | Departures from a site (optionally filtered) |
+| `getLines()`                      | `GET /v1/lines`                 | Lines grouped by mode                        |
+| `getStopPoints()`                 | `GET /v1/stop-points`           | List all stop points                         |
+| `getTransportAuthorities()`       | `GET /v1/transport-authorities` | List transport authorities                   |
+| `getCachedSites()`                | Cached                          | All sites (fetched once, then in-memory)     |
+| `getSiteById(id)`                 | Cached                          | Look up a site by numeric ID                 |
+| `getSiteByName(name)`             | Cached                          | Look up a site by exact name                 |
+| `searchSitesByName(query)`        | Cached                          | Search sites by name substring               |
 
 > **Site ID note:** IDs from Trafiklab Stop Lookup (format `300109001`) need the prefix removed — `300109001` becomes `9001`.
 

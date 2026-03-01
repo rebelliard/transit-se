@@ -3,7 +3,7 @@ import type { Coordinates, TransportMode } from '../common';
 /**
  * A child stop within a stop group.
  */
-export interface TrafiklabStop extends Coordinates {
+interface TrafiklabStop extends Coordinates {
   id: string;
   name: string;
 }
@@ -11,12 +11,12 @@ export interface TrafiklabStop extends Coordinates {
 /**
  * Area type for stop groups.
  */
-export type TrafiklabAreaType = 'META_STOP' | 'RIKSHALLPLATS';
+type TrafiklabAreaType = 'META_STOP' | 'RIKSHALLPLATS';
 
 /**
  * A group of related stops (rikshållplats or meta-stop).
  */
-export interface TrafiklabStopGroup {
+interface TrafiklabStopGroup {
   id: string;
   name: string;
   area_type: TrafiklabAreaType;
@@ -28,7 +28,7 @@ export interface TrafiklabStopGroup {
 /**
  * Query metadata in a stop lookup response.
  */
-export interface TrafiklabStopLookupQuery {
+interface TrafiklabStopLookupQuery {
   queryTime: string;
   query: string | null;
 }
