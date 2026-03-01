@@ -1,5 +1,10 @@
 # Changelog
 
+## 1.1.0
+
+- Bump `@transit-se/sdk` to 1.1.0 (type fixes aligned with real API responses — see SDK changelog)
+- `sl_departures` tool now accepts optional `forecast`, `direction`, `line`, and `transport` filter parameters
+
 ## 1.0.4
 
 - Bump `@transit-se/sdk` to 1.0.4

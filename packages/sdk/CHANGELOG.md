@@ -1,5 +1,17 @@
 # Changelog
 
+## 1.1.0
+
+### Breaking changes
+
+- **`SLTransportMode`** values are now UPPERCASE (`'METRO'`, `'BUS'`, etc.) to match the actual API responses. Previously they were incorrectly typed as lowercase.
+- **`Alert` type removed** from `types/common`. Timetable alerts now use a `TrafiklabAlert` type with `title`/`text` fields (matching the real API) instead of `header`/`details`.
+
+### Fixes
+
+- Align schemas with real Trafiklab API responses.
+- **Valibot schemas** updated to match all type changes above
+
 ## 1.0.4
 
 - Add cross-reference to `@transit-se/mcp` in README
