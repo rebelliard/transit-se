@@ -2,6 +2,8 @@
 
 TypeScript SDK for [Trafiklab](https://www.trafiklab.se/) realtime APIs with a focus on Stockholm (SL).
 
+Also available as AI-callable tools via [`@transit-se/mcp`](https://www.npmjs.com/package/@transit-se/mcp).
+
 ## Table of Contents
 
 - [Installation](#installation)

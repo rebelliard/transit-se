@@ -1,6 +1,6 @@
 {
   "name": "@transit-se/sdk",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "TypeScript SDK for Swedish public transit APIs (Trafiklab, GTFS-RT). Departures, stop lookups, service alerts, vehicle positions, and more.",
   "homepage": "https://github.com/rebelliard/transit-se/tree/main/packages/sdk#transit-sesdk",
   "type": "module",

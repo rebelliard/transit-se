@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.4
+
+- Add cross-reference to `@transit-se/mcp` in README
+
 ## 1.0.3
 
 - Reduce npm package size (drop source maps, exclude tests and fixtures)
