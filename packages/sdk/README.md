@@ -327,7 +327,10 @@ const sl = new SLTransportApi({ validate: true });
 Schemas are exported for direct use:
 
 ```typescript
-import { TrafiklabStopLookupResponseSchema, SLDepartureSchema } from '@transit-se/sdk/schemas';
+import {
+  TrafiklabStopLookupResponseSchema,
+  SLDeparturesResponseSchema,
+} from '@transit-se/sdk/schemas';
 ```
 
 ## Usage Tracking

@@ -53,6 +53,7 @@ This is a Bun monorepo containing TypeScript packages for interacting with Swedi
 - **Linting**: ESLint with typescript-eslint (see `eslint.config.js`)
 - **Testing**: `bun test`. Tests mock `globalThis.fetch` — never make real HTTP requests in tests. All `it()` descriptions must start with `should` (e.g. `it('should return departures')`). Use `@total-typescript/shoehorn` `fromPartial<T>()` for partial test mocks instead of `as any` or `as unknown as T`.
 - **Types**: Match API response shapes exactly. Check Trafiklab docs if unsure. Always run `bun run tc` after making type changes.
+- **Exports**: Only export top-level response types/schemas that consumers use directly (e.g. `SLDeparturesResponse`, `SLDeparturesResponseSchema`). Internal building-block types and schemas (sub-interfaces, enum types, helper schemas) should remain unexported — they are implementation details composed into the exported response types.
 - **Schemas**: Every type file in `src/types/` has a matching Valibot schema in `src/schemas/`. Keep them in sync.
 - **Validation**: Opt-in via `validate: true`. When enabled, `BaseApi.get()` parses responses through Valibot schemas and throws `ValidationError` on mismatch. When disabled (default), responses are cast to TypeScript types with zero overhead and no valibot dependency.
 - **Arrays**: Use `Array<T>` syntax, not `T[]`. E.g. `Array<SLDeviationMessage>` instead of `SLDeviationMessage[]`.
@@ -104,7 +105,7 @@ Both packages use `tsc` to build. The SDK emits JS + declaration files; the MCP 
 3. Create API class in `src/api/sl/`, `src/api/trafiklab/`, `src/api/gtfs/`, or `src/api/combined/` extending `BaseApi` (JSON), `GtfsBaseApi` (protobuf), or standalone (Combined orchestrators)
 4. Export from the barrel `index.ts` in the same API folder
 5. Add to `TransitClient` in `src/client.ts` (or keep standalone if it uses a separate API key or combines multiple sources)
-6. Add test fixtures in `src/__fixtures__/sl/`, `src/__fixtures__/trafiklab/`, `src/__fixtures__/gtfs/`, or `src/__fixtures__/combined/`
+6. Add test fixtures in `src/__fixtures__/sl/`, `src/__fixtures__/trafiklab/`, `src/__fixtures__/gtfs/`, or `src/__fixtures__/combined/`. Fixtures should use real data fetched from live APIs — not fabricated placeholder values. This ensures types and schemas stay aligned with actual response shapes.
 7. Add tests co-located next to the API class (+ validation tests in `src/validation.test.ts` for JSON APIs)
 8. Add the route to `packages/sdk/dev/swagger.ts`
 9. Update README documentation
