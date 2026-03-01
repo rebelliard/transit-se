@@ -2,7 +2,7 @@
 
 MCP (Model Context Protocol) server for Swedish public transit. Exposes [Trafiklab](https://www.trafiklab.se/) real-time APIs as tools that AI assistants like Claude can call directly.
 
-Built on top of [`@transit-se/sdk`](../sdk/).
+Built on top of [`@transit-se/sdk`](https://www.npmjs.com/package/@transit-se/sdk).
 
 ## Table of Contents
 

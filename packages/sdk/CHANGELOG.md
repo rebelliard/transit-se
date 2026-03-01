@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.3
+
+- Reduce npm package size (drop source maps, exclude tests and fixtures)
+- Add Installation section to README
+- Add Swagger UI mention to Quick Start
+
 ## 1.0.2
 
 - Improve npm discoverability (keywords, homepage, description)

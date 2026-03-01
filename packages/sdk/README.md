@@ -4,6 +4,7 @@ TypeScript SDK for [Trafiklab](https://www.trafiklab.se/) realtime APIs with a f
 
 ## Table of Contents
 
+- [Installation](#installation)
 - [APIs Covered](#apis-covered)
 - [Quick Start](#quick-start)
 - [API Reference](#api-reference)
@@ -17,6 +18,12 @@ TypeScript SDK for [Trafiklab](https://www.trafiklab.se/) realtime APIs with a f
 - [Response Validation](#response-validation)
 - [Usage Tracking](#usage-tracking)
 - [Error Handling](#error-handling)
+
+## Installation
+
+```bash
+npm install @transit-se/sdk
+```
 
 ## APIs Covered
 
